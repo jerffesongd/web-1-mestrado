@@ -1,0 +1,44 @@
+<h2 class="mb-4 text-center">Cadastro de Frases</h2>
+
+<form (ngSubmit)="salvar()" class="row g-3 mb-4">
+  <div class="col-md-8">
+    <input type="text" class="form-control" placeholder="Frase" [(ngModel)]="novaFrase.texto" name="texto" required />
+  </div>
+
+  <div class="col-md-4" *ngIf="autores$ | async as autoresList">
+    <select class="form-select" [(ngModel)]="novaFrase.autorId" name="autorId" required>
+      <option value="" disabled>Selecione o autor</option>
+      <option *ngFor="let autor of autoresList" [value]="autor.id">
+        {{ autor.nome }} {{ autor.sobrenome }}
+      </option>
+    </select>
+  </div>
+
+  <div class="col-12 text-center">
+    <button type="submit" class="btn btn-primary px-4">Salvar</button>
+  </div>
+</form>
+
+<table class="table table-striped text-center align-middle">
+  <thead class="table-light">
+    <tr>
+      <th>Frase</th>
+      <th>Autor</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngIf="autores$ | async as autoresList">
+      <tr *ngFor="let frase of (frases$ | async)">
+        <td>{{ frase.texto }}</td>
+        <td>{{ getAutorNome(frase.autorId, autoresList) }}</td>
+        <td>
+          <button class="btn btn-sm btn-outline-danger" (click)="deletar(frase.id!)">
+            Excluir
+          </button>
+        </td>
+      </tr>
+    </ng-container>
+
+  </tbody>
+</table>

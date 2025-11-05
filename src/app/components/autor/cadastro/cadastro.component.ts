@@ -4,12 +4,9 @@ import { collectionData, Firestore } from '@angular/fire/firestore';
 import { FormsModule } from '@angular/forms';
 import { addDoc, collection, deleteDoc, doc } from 'firebase/firestore';
 import { Observable } from 'rxjs';
+import { Autor } from '../../model/Autor';
 
-interface Autor {
-  id?: string;
-  nome: string;
-  sobrenome: string;
-}
+
 
 @Component({
   selector: 'app-cadastro-autor',

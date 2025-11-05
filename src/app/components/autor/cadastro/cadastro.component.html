@@ -1,0 +1,53 @@
+<h2 class="mb-4 text-center">Cadastro de Autores</h2>
+
+<form (ngSubmit)="salvar()" class="row g-3 mb-4">
+  <div class="col-md-6">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Nome"
+      [(ngModel)]="novoAutor.nome"
+      name="nome"
+      required
+    />
+  </div>
+
+  <div class="col-md-6">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Sobrenome"
+      [(ngModel)]="novoAutor.sobrenome"
+      name="sobrenome"
+      required
+    />
+  </div>
+
+  <div class="col-12 text-center">
+    <button type="submit" class="btn btn-primary px-4">Salvar</button>
+  </div>
+</form>
+
+<table class="table table-striped text-center align-middle">
+  <thead class="table-light">
+    <tr>
+      <th>Nome</th>
+      <th>Sobrenome</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let autor of (autores$ | async)">
+      <td>{{ autor.nome }}</td>
+      <td>{{ autor.sobrenome }}</td>
+      <td>
+        <button
+          class="btn btn-sm btn-outline-danger"
+          (click)="deletar(autor.id!)"
+        >
+          Excluir
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

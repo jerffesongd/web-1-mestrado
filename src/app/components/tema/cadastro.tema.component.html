@@ -1,0 +1,63 @@
+<h2 class="mb-4 text-center">Cadastro de Temas</h2>
+
+<app-mensagem [texto]="mensagem" [tipo]="tipoMensagem"></app-mensagem>
+
+<form (ngSubmit)="salvar()" class="row g-3 mb-4">
+  <div class="col-md-4">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Nome"
+      [(ngModel)]="novoTema.nome"
+      name="nome"
+      required
+    />
+  </div>
+
+  <div class="col-md-6">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Descrição"
+      [(ngModel)]="novoTema.descricao"
+      name="descricao"
+      required
+    />
+  </div>
+
+  <div class="col-md-2 text-center">
+    <button type="submit" class="btn btn-primary w-100">
+      {{ editandoId ? 'Atualizar' : 'Salvar' }}
+    </button>
+  </div>
+
+  <div *ngIf="editandoId" class="col-12 text-center">
+    <button type="button" class="btn btn-secondary btn-sm" (click)="cancelarEdicao()">
+      Cancelar Edição
+    </button>
+  </div>
+</form>
+
+<table class="table table-striped text-center align-middle">
+  <thead class="table-light">
+    <tr>
+      <th>Nome</th>
+      <th>Descrição</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let tema of (temas$ | async)">
+      <td>{{ tema.nome }}</td>
+      <td>{{ tema.descricao }}</td>
+      <td>
+        <button class="btn btn-sm btn-outline-primary me-2" (click)="editar(tema.id!)">
+          Editar
+        </button>
+        <button class="btn btn-sm btn-outline-danger" (click)="deletar(tema.id!)">
+          Excluir
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,7 +1,9 @@
 <h2 class="mb-4 text-center">Cadastro de Autores</h2>
 
+<app-mensagem [texto]="mensagem" [tipo]="tipoMensagem"></app-mensagem>
+
 <form (ngSubmit)="salvar()" class="row g-3 mb-4">
-  <div class="col-md-6">
+  <div class="col-md-5">
     <input
       type="text"
       class="form-control"
@@ -12,7 +14,7 @@
     />
   </div>
 
-  <div class="col-md-6">
+  <div class="col-md-5">
     <input
       type="text"
       class="form-control"
@@ -23,8 +25,16 @@
     />
   </div>
 
-  <div class="col-12 text-center">
-    <button type="submit" class="btn btn-primary px-4">Salvar</button>
+  <div class="col-md-2 text-center">
+    <button type="submit" class="btn btn-primary w-100">
+      {{ editandoId ? 'Atualizar' : 'Salvar' }}
+    </button>
+  </div>
+
+  <div *ngIf="editandoId" class="col-12 text-center">
+    <button type="button" class="btn btn-secondary btn-sm" (click)="cancelarEdicao()">
+      Cancelar Edição
+    </button>
   </div>
 </form>
 
@@ -41,10 +51,10 @@
       <td>{{ autor.nome }}</td>
       <td>{{ autor.sobrenome }}</td>
       <td>
-        <button
-          class="btn btn-sm btn-outline-danger"
-          (click)="deletar(autor.id!)"
-        >
+        <button class="btn btn-sm btn-outline-primary me-2" (click)="editar(autor.id!)">
+          Editar
+        </button>
+        <button class="btn btn-sm btn-outline-danger" (click)="deletar(autor.id!)">
           Excluir
         </button>
       </td>

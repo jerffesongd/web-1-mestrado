@@ -1,21 +1,74 @@
 <h2 class="mb-4 text-center">Cadastro de Frases</h2>
 
-<form (ngSubmit)="salvar()" class="row g-3 mb-4">
-  <div class="col-md-8">
-    <input type="text" class="form-control" placeholder="Frase" [(ngModel)]="novaFrase.texto" name="texto" required />
-  </div>
+<app-mensagem [texto]="mensagem" [tipo]="tipoMensagem"></app-mensagem>
 
-  <div class="col-md-4" *ngIf="autores$ | async as autoresList">
-    <select class="form-select" [(ngModel)]="novaFrase.autorId" name="autorId" required>
-      <option value="" disabled>Selecione o autor</option>
-      <option *ngFor="let autor of autoresList" [value]="autor.id">
+<form (ngSubmit)="salvar()" class="row g-3 mb-4">
+  <div class="col-md-4">
+    <select
+      class="form-select"
+      [(ngModel)]="novaFrase.autorId"
+      name="autorId"
+      required
+    >
+      <option value="" disabled selected>Selecione o autor</option>
+      <option *ngFor="let autor of (autores$ | async)" [value]="autor.id">
         {{ autor.nome }} {{ autor.sobrenome }}
       </option>
     </select>
   </div>
 
+  <div class="col-md-4">
+    <select
+      class="form-select"
+      [(ngModel)]="novaFrase.temaId"
+      name="temaId"
+      required
+    >
+      <option value="" disabled selected>Selecione o tema</option>
+      <option *ngFor="let tema of (temas$ | async)" [value]="tema.id">
+        {{ tema.nome }}
+      </option>
+    </select>
+  </div>
+
+  <div class="col-md-4">
+    <select
+      class="form-select"
+      [(ngModel)]="novaFrase.categoria"
+      name="categoria"
+      required
+    >
+      <option value="" disabled selected>Selecione a categoria</option>
+      <option value="motivacional">Motivacional</option>
+      <option value="filosófica">Filosófica</option>
+      <option value="engraçada">Engraçada</option>
+      <option value="reflexiva">Reflexiva</option>
+    </select>
+  </div>
+
+  <div class="col-12">
+    <textarea
+      class="form-control"
+      placeholder="Digite a frase"
+      [(ngModel)]="novaFrase.texto"
+      name="texto"
+      required
+    ></textarea>
+  </div>
+
   <div class="col-12 text-center">
-    <button type="submit" class="btn btn-primary px-4">Salvar</button>
+    <button type="submit" class="btn btn-primary w-25">
+      {{ editandoId ? 'Atualizar' : 'Salvar' }}
+    </button>
+
+    <button
+      *ngIf="editandoId"
+      type="button"
+      class="btn btn-secondary ms-2"
+      (click)="cancelarEdicao()"
+    >
+      Cancelar Edição
+    </button>
   </div>
 </form>
 
@@ -24,21 +77,25 @@
     <tr>
       <th>Frase</th>
       <th>Autor</th>
+      <th>Tema</th>
+      <th>Categoria</th>
       <th>Ações</th>
     </tr>
   </thead>
   <tbody>
-    <ng-container *ngIf="autores$ | async as autoresList">
-      <tr *ngFor="let frase of (frases$ | async)">
-        <td>{{ frase.texto }}</td>
-        <td>{{ getAutorNome(frase.autorId, autoresList) }}</td>
-        <td>
-          <button class="btn btn-sm btn-outline-danger" (click)="deletar(frase.id!)">
-            Excluir
-          </button>
-        </td>
-      </tr>
-    </ng-container>
-
+    <tr *ngFor="let frase of (frases$ | async)">
+      <td>{{ frase.texto }}</td>
+      <td>{{ getAutorNome(frase.autorId) }}</td>
+      <td>{{ getTemaNome(frase.temaId) }}</td>
+      <td>{{ frase.categoria }}</td>
+      <td>
+        <button class="btn btn-sm btn-outline-primary me-2" (click)="editar(frase.id!)">
+          Editar
+        </button>
+        <button class="btn btn-sm btn-outline-danger" (click)="deletar(frase.id!)">
+          Excluir
+        </button>
+      </td>
+    </tr>
   </tbody>
 </table>

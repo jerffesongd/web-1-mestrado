@@ -26,6 +26,7 @@ import { SessaoService, UsuarioLogado } from '../../service/sessao.service';
   selector: 'app-cadastro-frase',
   standalone: true,
   imports: [CommonModule, FormsModule, MensagemComponent],
+  styleUrl: './cadastro.frase.component.scss',
   templateUrl: './cadastro.frase.component.html'
 })
 export class CadastroFraseComponent {
@@ -175,5 +176,17 @@ export class CadastroFraseComponent {
   getUsuarioNome(id: string): string {
     const usuario = this.usuariosSnapshot.find(u => u.id === id);
     return usuario ? usuario.nomeExibicao ?? usuario.nome : '—';
-}
+  }
+
+  drawerAberto = false;
+
+  abrirDrawer() {
+    this.editandoId = null;
+    this.novaFrase = {};
+    this.drawerAberto = true;
+  }
+
+  fecharDrawer() {
+    this.drawerAberto = false;
+  }
 }

@@ -1,0 +1,132 @@
+/* container geral */
+.container-frases {
+  max-width: 850px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* header com botão de nova frase */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.btn-nova-frase {
+  background-color: #6c63ff;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.btn-nova-frase:hover {
+  filter: brightness(0.9);
+}
+
+/* cards das frases */
+.lista-frases {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.card-frase {
+  background: white;
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0px 2px 8px rgba(0,0,0,0.08);
+  transition: transform 0.2s;
+}
+.card-frase:hover {
+  transform: translateY(-3px);
+}
+
+.frase-texto {
+  font-size: 1.3rem;
+  font-style: italic;
+  color: #333;
+}
+
+.frase-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+  font-size: 0.9rem;
+}
+
+/* botões dentro do card */
+.acoes {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+}
+.btn-acao {
+  padding: 5px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+}
+.edit {
+  background-color: #6c63ff;
+  color: white;
+}
+.delete {
+  background-color: #ff6584;
+  color: white;
+}
+
+/* Drawer lateral */
+.drawer {
+  position: fixed;
+  right: -420px;
+  top: 0;
+  height: 100vh;
+  width: 400px;
+  background: #f7f7fb;
+  padding: 20px;
+  box-shadow: -3px 0 8px rgba(0,0,0,0.1);
+  transition: right 0.3s;
+}
+.drawer.open {
+  right: 0;
+}
+
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-close {
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.form-drawer {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-drawer select,
+.form-drawer textarea {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #bbb;
+}
+
+.btn-salvar {
+  background-color: #6c63ff;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}

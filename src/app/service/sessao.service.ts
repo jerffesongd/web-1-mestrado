@@ -1,6 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { Firestore, collection, addDoc, query, where, getDocs,   doc,
-  updateDoc, } from '@angular/fire/firestore';
+  updateDoc,
+  deleteDoc, } from '@angular/fire/firestore';
 import { Route, Router } from '@angular/router';
 
 export interface UsuarioLogado {
@@ -60,6 +61,10 @@ export class SessaoService {
     const resultado = await getDocs(q);
 
     const docSnap = resultado.docs[0];
+
+    if(!docSnap || !docSnap.data() ){
+      return false
+    }
     const data = docSnap.data() as UsuarioLogado;
 
     const usuario: UsuarioLogado = {
@@ -103,5 +108,21 @@ export class SessaoService {
 
   isLogado() {
     return this.usuarioAtual() !== null;
+  }
+
+  async excluirUsuarioLogado() {
+    const usuario = this.usuarioAtual();
+    if (!usuario?.id) return;
+
+    const docRef = doc(this.firestore, `usuarios/${usuario.id}`);
+
+    await deleteDoc(docRef);
+
+    // Limpa sessão
+    this.usuarioAtual.set(null);
+    localStorage.removeItem('usuarioLogado');
+
+    // Redireciona
+    this.router.navigate(['']);
   }
 }

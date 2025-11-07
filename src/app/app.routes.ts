@@ -10,6 +10,10 @@ import { FeedComponent } from './components/feed/feed.component';
 import { AutoresComponent } from './components/autor/listagem/autores.component';
 import { AutorDetalheComponent } from './components/autor/detalhes/autor.detalhes.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
+import { CategoriasListComponent } from './components/categoria/listagem/categorias-list.component';
+import { CategoriaFrasesComponent } from './components/categoria/frases/categoria.frases.component';
+import { TemasListComponent } from './components/tema/listagem/tema-list.component';
+import { TemaFrasesComponent } from './components/tema/frases/tema.frases.component';
 
 export const routes: Routes = [
     { path: '', component: FeedComponent },
@@ -23,5 +27,9 @@ export const routes: Routes = [
     { path: 'autores', component: AutoresComponent },
     { path: 'autores/:id', component: AutorDetalheComponent },
     { path: 'perfil', component: PerfilComponent },
+    { path: 'categorias', component: CategoriasListComponent },
+    { path: 'categorias/:id', component: CategoriaFrasesComponent },
+    { path: 'temas', component: TemasListComponent },
+    { path: 'temas/:id', component: TemaFrasesComponent },
     { path: '**', redirectTo: '' }
 ];

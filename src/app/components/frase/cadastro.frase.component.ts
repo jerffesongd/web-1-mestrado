@@ -180,6 +180,11 @@ export class CadastroFraseComponent {
     return tema ? tema.nome : '';
   }
 
+  getCategoriaNome(id: string): string {
+    const categoria = this.categoriasSnapshot.find(t => t.id === id);
+    return categoria ? categoria.nome : '';
+  }
+
   getUsuarioNome(id: string): string {
     const usuario = this.usuariosSnapshot.find(u => u.id === id);
     return usuario ? usuario.nomeExibicao ?? usuario.nome : '—';

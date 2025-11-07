@@ -50,9 +50,9 @@
                 </ul>
 
                 <div class="text-center">
-                  <button class="btn btn-outline-secondary btn-sm" (click)="verMaisCategoria(categoria.id ?? '')">
-                    Ver todos
-                  </button>
+                <a class="btn btn-secondary" [routerLink]="['/categorias', categoria.id]">
+                  Ver Categoria
+                </a>    
                 </div>
               </div>
             </div>
@@ -62,9 +62,9 @@
 
         <!-- 🔹 Botão "Ver todas as categorias" -->
         <div class="text-center mt-3">
-          <button class="btn btn-secondary" (click)="verMaisCategoria()">
+          <a class="btn btn-secondary" [routerLink]="['/categorias']">
             Ver todas as categorias
-          </button>
+          </a>
         </div>
       </ng-container>
     </ng-container>
@@ -97,9 +97,9 @@
                 </ul>
 
                 <div class="text-center">
-                  <button class="btn btn-outline-dark btn-sm" (click)="verMaisTema(tema.id ?? '')">
+                  <a class="btn btn-outline-dark btn-sm" [routerLink]="['/temas', tema.id]">
                     Ver todos
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
@@ -109,9 +109,9 @@
 
         <!-- 🔹 Botão "Ver todos os temas" -->
         <div class="text-center mt-3">
-          <button class="btn btn-dark" (click)="verMaisTema()">
+          <a class="btn btn-dark" [routerLink]="['/temas']">
             Ver todos os temas
-          </button>
+          </a>
         </div>
       </ng-container>
     </ng-container>

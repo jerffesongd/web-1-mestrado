@@ -1,0 +1,24 @@
+<div class="container mt-4" *ngIf="categoria$ | async as categoria; else loading">
+  <h2 class="text-center mb-4">{{ categoria.nome }}</h2>
+  <p class="text-center text-muted">{{ categoria.descricao }}</p>
+
+  <section class="mt-4">
+    <h3 class="mb-3">Frases da Categoria</h3>
+
+    <ng-container *ngIf="frases$ | async as frases; else loadingFrases">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item p-0 border-0" *ngFor="let f of frases">
+          <app-frase-card [texto]="f.texto"></app-frase-card>
+        </li>
+      </ul>
+    </ng-container>
+  </section>
+</div>
+
+<ng-template #loading>
+  <p class="text-center text-muted">Carregando categoria...</p>
+</ng-template>
+
+<ng-template #loadingFrases>
+  <p class="text-center text-muted">Carregando frases...</p>
+</ng-template>

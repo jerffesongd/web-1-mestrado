@@ -88,7 +88,7 @@
       <td>{{ frase.texto }}</td>
       <td>{{ getAutorNome(frase.autorId) }}</td>
       <td>{{ getTemaNome(frase.temaId) }}</td>
-      <td>{{ frase.categoria }}</td>
+      <td>{{ getCategoriaNome(frase.categoria) }}</td>
       <td>{{ getUsuarioNome(frase.criadoPor) }}</td>
       <td>{{ frase.criadoEm?.toDate?.() | date:'dd/MM/yyyy HH:mm' }}</td>
       <td>

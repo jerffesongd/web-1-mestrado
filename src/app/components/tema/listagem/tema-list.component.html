@@ -1,0 +1,39 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Temas</h2>
+
+  <ng-container *ngIf="(temas$ | async) as temas; else loadingTemas">
+    <ng-container *ngIf="(frases$ | async) as frases">
+      <div class="row">
+        @for (tema of temas; track tema.id) {
+          <div class="col-md-6 mb-4">
+            <div class="card shadow-sm h-100">
+              <div class="card-body">
+                <h4 class="card-title text-center">{{ tema.nome }}</h4>
+                <p class="text-muted">{{ tema.descricao }}</p>
+
+                <!-- Frases do tema -->
+                <ul class="list-group list-group-flush mb-2">
+                  @for (frase of filtrarFrases(frases, tema.id ?? ''); track frase.id) {
+                    <li class="list-group-item p-0 border-0">
+                      <app-frase-card [texto]="frase.texto"></app-frase-card>
+                    </li>
+                  }
+                </ul>
+
+                <div class="text-center">
+                  <button class="btn btn-outline-secondary btn-sm" (click)="verMaisTema(tema.id ?? '')">
+                    Ver todos
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #loadingTemas>
+    <p class="text-center text-muted">Carregando temas...</p>
+  </ng-template>
+</div>

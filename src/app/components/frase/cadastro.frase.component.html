@@ -3,7 +3,9 @@
   <!-- Header -->
   <div class="header">
     <h2>Frases</h2>
-    <button class="btn-nova-frase" (click)="abrirDrawer()">+ Nova frase</button>
+    @if(usuarioLogado()){
+      <button class="btn-nova-frase" (click)="abrirDrawer()">+ Nova frase</button>
+    }
   </div>
 
   <!-- MENSAGEM -->
@@ -23,10 +25,12 @@
         <span><strong>Em:</strong> {{ frase.criadoEm?.toDate?.() | date:'dd/MM/yyyy HH:mm' }}</span>
       </div>
 
-      <div class="acoes">
-        <button class="btn-acao edit" (click)="editar(frase.id!)">Editar</button>
-        <button class="btn-acao delete" (click)="deletar(frase.id!)">Excluir</button>
-      </div>
+      @if(usuarioLogado()){
+        <div class="acoes">
+          <span class="btn-acao edit" (click)="editar(frase.id!)">Editar</span>
+          <span class="btn-acao delete" (click)="deletar(frase.id!)">Excluir</span>
+        </div>
+      }
     </div>
   </div>
 </div>
@@ -34,7 +38,7 @@
 <!-- DRAWER LATERAL -->
 <div class="drawer" [class.open]="drawerAberto">
   <div class="drawer-header">
-    <h3>{{ editandoId ? 'Editar Frase' : 'Nova Frase' }}</h3>
+    <h3 class="titulo-cadastro">{{ editandoId ? 'Editar Frase' : 'Nova Frase' }}</h3>
     <button class="btn-close" (click)="fecharDrawer()">✕</button>
   </div>
 

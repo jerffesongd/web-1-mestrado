@@ -15,10 +15,12 @@ import { Observable } from 'rxjs';
 import { Tema } from '../model/Tema';
 import { MensagemComponent } from '../mensagem/mensagem.component';
 import { TipoMensagem } from '../model/TipoMensagem';
+import { SessaoService } from '../../service/sessao.service';
 
 @Component({
   selector: 'app-cadastro-tema',
   standalone: true,
+  styleUrl: './cadastro.tema.component.scss',
   imports: [CommonModule, FormsModule, MensagemComponent],
   templateUrl: './cadastro.tema.component.html'
 })
@@ -30,7 +32,7 @@ export class CadastroTemaComponent {
   mensagem: string | null = null;
   tipoMensagem: TipoMensagem | null = null;
 
-  constructor(private firestore: Firestore) {
+  constructor(private firestore: Firestore, private sessaoService: SessaoService) {
     const temasRef = collection(this.firestore, 'temas');
     this.temas$ = collectionData(temasRef, { idField: 'id' }) as Observable<Tema[]>;
   }
@@ -86,6 +88,7 @@ export class CadastroTemaComponent {
         const data = snap.data() as Tema;
         this.novoTema = { nome: data.nome, descricao: data.descricao };
         this.editandoId = id;
+        this.drawerAberto = true;
       }
     } catch {
       this.exibirMensagem('Erro ao carregar o tema para edição.', TipoMensagem.ERRO);
@@ -108,5 +111,21 @@ export class CadastroTemaComponent {
     this.editandoId = null;
     this.novoTema = {};
     this.exibirMensagem('Edição cancelada.', TipoMensagem.AVISO);
+  }
+
+  usuarioLogado(){
+    return this.sessaoService.isLogado()
+  }
+
+  drawerAberto = false;
+
+  abrirDrawer() {
+    this.editandoId = null;
+    this.novoTema = {};
+    this.drawerAberto = true;
+  }
+
+  fecharDrawer() {
+    this.drawerAberto = false;
   }
 }

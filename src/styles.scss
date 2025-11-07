@@ -2,9 +2,13 @@
 :root {
   --blue-light: #e7f1ff;
   --blue-primary: #6da9e4;
+  --blue-dark: #1b4d7e;
   --blue-primary-hover: #5a94ca;
   --text-title: #5a94ca;
   --text-subtitle: #5f738a;
+  --lilas-claro: #E9E3FF; 
+  --lilas: rgb(229, 231, 252);
+  --azul-claro: rgb(228,245,255);
 }
 
 html{
@@ -15,6 +19,20 @@ html{
 body {
   margin: 0;
   height: auto;
+}
+
+.header h2 {
+  font-family: "Pacifico";
+}
+
+.titulo-cadastro{
+  font-family: "Pacifico";
+  color:var(--blue-dark);
+  width: 100%;
+  text-align: center;
+  text-decoration: dotted underline;
+  font-size: 32px;
+  margin: 0;
 }
 
 .container-principal{
@@ -36,3 +54,72 @@ body {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+/* ============================== Drawer lateral ===================== */
+.drawer {
+  position: fixed;
+  right: -500px;       /* Começa fora da tela */
+  top: 50%;            /* Centraliza verticalmente */
+  transform: translateY(-50%);  /* Ajuste fino para centralização */
+  height: 700px;       /* <<< ALTURA DEFINIDA */
+  width: 500px;
+  background: linear-gradient(135deg, var(--lilas), var(--azul-claro));
+  padding: 30px;
+  box-shadow: -3px 0 8px rgba(0,0,0,0.1);
+  transition: right 0.3s ease;
+  border-radius: 10px 0 0 10px;
+}
+
+.drawer.open {
+  right: 0;            /* Quando aberto, encosta na lateral */
+}
+
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-close {
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+  line-height: 20px;
+  font-weight: 700;
+}
+
+.form-drawer {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+
+  label, button{
+    margin-top: 30px;
+  }
+
+}
+
+.form-drawer select,
+.form-drawer textarea {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #bbb;
+}
+/* ============================== fim Drawer lateral ===================== */
+
+.btn-salvar {
+  background-color: var(--blue-primary);
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+label{
+  color: var(--blue-dark);
+  font-size: 16px;
+  font-weight: 500;
+}

@@ -1,63 +1,76 @@
-<h2 class="mb-4 text-center">Cadastro de Autores</h2>
+<div class="container-frases">
 
-<app-mensagem [texto]="mensagem" [tipo]="tipoMensagem"></app-mensagem>
+  <!-- Header -->
+  <div class="header">
+    <h2>Autores</h2>
+    @if(usuarioLogado()){
+      <button class="btn-nova-frase" (click)="abrirDrawer()">+ Novo autor</button>
+    }
+  </div>
 
-<form (ngSubmit)="salvar()" class="row g-3 mb-4">
-  <div class="col-md-5">
+  <!-- MENSAGEM -->
+  <app-mensagem [texto]="mensagem" [tipo]="tipoMensagem"></app-mensagem>
+
+  <!-- LISTAGEM EM CARDS -->
+  <div class="lista-frases">
+    <div class="card-frase" *ngFor="let autor of (autores$ | async)">
+
+      <div class="frase-texto">
+        {{ autor.nome }} {{ autor.sobrenome }}
+      </div>
+
+      @if(autor.descricao){
+        <div class="frase-info">
+          <span> {{ autor.descricao }}</span>
+        </div>
+
+      }
+
+      @if(usuarioLogado()){
+      <div class="acoes">
+        <span class="btn-acao edit" (click)="editar(autor.id!)">Editar</span>
+        <span class="btn-acao delete" (click)="deletar(autor.id!)">Excluir</span>
+      </div>
+      }
+    </div>
+  </div>
+</div>
+
+<!-- DRAWER LATERAL -->
+<div class="drawer" [class.open]="drawerAberto">
+  <div class="drawer-header">
+    <h3 class="titulo-cadastro">{{ editandoId ? 'Editar Autor' : 'Novo Autor' }}</h3>
+    <button class="btn-close" (click)="fecharDrawer()">✕</button>
+  </div>
+
+  <form (ngSubmit)="salvar()" class="form-drawer">
+
+    <label>Nome</label>
     <input
       type="text"
       class="form-control"
-      placeholder="Nome"
       [(ngModel)]="novoAutor.nome"
       name="nome"
       required
     />
-  </div>
 
-  <div class="col-md-5">
+    <label>Sobrenome</label>
     <input
       type="text"
       class="form-control"
-      placeholder="Sobrenome"
       [(ngModel)]="novoAutor.sobrenome"
       name="sobrenome"
       required
     />
-  </div>
 
-  <div class="col-md-2 text-center">
-    <button type="submit" class="btn btn-primary w-100">
+    <label>Descrição</label>
+    <textarea class="form-control"
+      [(ngModel)]="novoAutor.descricao"
+      name="descricao">
+    </textarea>
+
+    <button type="submit" class="btn-salvar">
       {{ editandoId ? 'Atualizar' : 'Salvar' }}
     </button>
-  </div>
-
-  <div *ngIf="editandoId" class="col-12 text-center">
-    <button type="button" class="btn btn-secondary btn-sm" (click)="cancelarEdicao()">
-      Cancelar Edição
-    </button>
-  </div>
-</form>
-
-<table class="table table-striped text-center align-middle">
-  <thead class="table-light">
-    <tr>
-      <th>Nome</th>
-      <th>Sobrenome</th>
-      <th>Ações</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let autor of (autores$ | async)">
-      <td>{{ autor.nome }}</td>
-      <td>{{ autor.sobrenome }}</td>
-      <td>
-        <button class="btn btn-sm btn-outline-primary me-2" (click)="editar(autor.id!)">
-          Editar
-        </button>
-        <button class="btn btn-sm btn-outline-danger" (click)="deletar(autor.id!)">
-          Excluir
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  </form>
+</div>

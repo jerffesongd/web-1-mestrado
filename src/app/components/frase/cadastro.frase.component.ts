@@ -148,6 +148,7 @@ export class CadastroFraseComponent {
           categoria: data.categoria
         };
         this.editandoId = id;
+        this.drawerAberto = true;
       }
     } catch {
       this.exibirMensagem('Erro ao carregar a frase para edição.', TipoMensagem.ERRO);
@@ -189,6 +190,7 @@ export class CadastroFraseComponent {
   drawerAberto = false;
 
   abrirDrawer() {
+    console.log("teste aqui")
     this.editandoId = null;
     this.novaFrase = {};
     this.drawerAberto = true;

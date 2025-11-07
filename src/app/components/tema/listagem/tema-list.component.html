@@ -21,9 +21,9 @@
                 </ul>
 
                 <div class="text-center">
-                  <button class="btn btn-outline-secondary btn-sm" (click)="verMaisTema(tema.id ?? '')">
+                  <a class="btn btn-outline-secondary btn-sm" [routerLink]="['/temas', tema.id]">
                     Ver todos
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>

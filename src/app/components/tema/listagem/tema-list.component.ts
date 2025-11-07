@@ -10,7 +10,7 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-temas-list',
   standalone: true,
-  imports: [CommonModule, FraseCardComponent],
+  imports: [CommonModule, FraseCardComponent, RouterLink],
   templateUrl: './tema-list.component.html',
   styleUrls: ['./tema-list.component.scss']
 })

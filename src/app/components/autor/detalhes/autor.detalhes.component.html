@@ -8,17 +8,17 @@
       <div class="col-md-4 mb-4" *ngFor="let categoria of categorias">
         <div class="card h-100 shadow-sm">
           <div class="card-body">
-            <h5 class="card-title text-center">{{ categoria }}</h5>
+            <h5 class="card-title text-center">{{ getCategoriaNome(categoria) }}</h5>
             <ul class="list-group list-group-flush mt-3">
-              <li class="list-group-item bg-light text-dark"
+              <li class="list-group-item p-0 border-0"
                   *ngFor="let f of filtrarFrasesPorCampo(frases, 'categoria', categoria) | slice:0:3">
-                {{ f.texto }}
+                <app-frase-card [texto]="f.texto"></app-frase-card>
               </li>
             </ul>
             <div class="text-center mt-3">
-              <button class="btn btn-outline-secondary btn-sm">
-                Ver todos
-              </button>
+              <a class="btn btn-secondary" [routerLink]="['/categorias', categoria]">
+                  Ver Categoria
+                </a> 
             </div>
           </div>
         </div>
@@ -33,17 +33,15 @@
       <div class="col-md-6 mb-4" *ngFor="let tema of temas">
         <div class="card h-100 shadow-sm">
           <div class="card-body">
-            <h5 class="card-title text-center">{{ tema | titlecase }}</h5>
+            <h5 class="card-title text-center">{{ getTemaNome(tema) }}</h5>
             <ul class="list-group list-group-flush mt-3">
-              <li class="list-group-item bg-light text-dark"
+              <li class="list-group-item p-0 border-0"
                   *ngFor="let f of filtrarFrasesPorCampo(frases, 'temaId', tema) | slice:0:3">
-                {{ f.texto }}
+                <app-frase-card [texto]="f.texto"></app-frase-card>
               </li>
             </ul>
             <div class="text-center mt-3">
-              <button class="btn btn-outline-dark btn-sm">
-                Ver todos
-              </button>
+              <a class="btn btn-outline-dark btn-sm" [routerLink]="['/temas', tema]">Ver todos</a>
             </div>
           </div>
         </div>

@@ -1,0 +1,39 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Categorias</h2>
+
+  <ng-container *ngIf="(categorias$ | async) as categorias; else loadingCategorias">
+    <ng-container *ngIf="(frases$ | async) as frases">
+      <div class="row">
+        @for (categoria of categorias; track categoria.id) {
+          <div class="col-md-6 mb-4">
+            <div class="card shadow-sm h-100">
+              <div class="card-body">
+                <h4 class="card-title text-center">{{ categoria.nome }}</h4>
+                <p class="text-muted">{{ categoria.descricao }}</p>
+
+                <!-- Frases da categoria -->
+                <ul class="list-group list-group-flush mb-2">
+                  @for (frase of filtrarFrases(frases, categoria.id ?? ''); track frase.id) {
+                    <li class="list-group-item p-0 border-0">
+                      <app-frase-card [texto]="frase.texto"></app-frase-card>
+                    </li>
+                  }
+                </ul>
+
+                <div class="text-center">
+                  <button class="btn btn-outline-secondary btn-sm" (click)="verMaisCategoria(categoria.id ?? '')">
+                    Ver todos
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #loadingCategorias>
+    <p class="text-center text-muted">Carregando categorias...</p>
+  </ng-template>
+</div>

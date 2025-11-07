@@ -1,63 +1,71 @@
-<h2 class="mb-4 text-center">Cadastro de Temas</h2>
+<div class="container-frases">
 
-<app-mensagem [texto]="mensagem" [tipo]="tipoMensagem"></app-mensagem>
+  <!-- Header -->
+  <div class="header">
+    <h2>Temas</h2>
+    @if(usuarioLogado()){
+      <button class="btn-nova-frase" (click)="abrirDrawer()">+ Novo tema</button>
+    }
+  </div>
 
-<form (ngSubmit)="salvar()" class="row g-3 mb-4">
-  <div class="col-md-4">
+  <!-- MENSAGEM -->
+  <app-mensagem [texto]="mensagem" [tipo]="tipoMensagem"></app-mensagem>
+
+  <!-- LISTAGEM EM CARDS -->
+  <div class="lista-frases">
+    <div class="card-frase" *ngFor="let tema of (temas$ | async)">
+
+      <!-- Nome do tema -->
+      <div class="frase-texto">
+        {{ tema.nome }}
+      </div>
+
+      <!-- Descrição -->
+      @if(tema.descricao){
+      <div class="frase-info">
+        <span>{{ tema.descricao }}</span>
+      </div>
+      }
+
+      @if(usuarioLogado()){
+      <!-- Ações -->
+      <div class="acoes">
+        <span class="btn-acao edit" (click)="editar(tema.id!)">Editar</span>
+        <span class="btn-acao delete" (click)="deletar(tema.id!)">Excluir</span>
+      </div>
+      }
+    </div>
+  </div>
+</div>
+
+
+<!-- DRAWER LATERAL -->
+<div class="drawer" [class.open]="drawerAberto">
+  <div class="drawer-header">
+    <h3 class="titulo-cadastro">{{ editandoId ? 'Editar Tema' : 'Novo Tema' }}</h3>
+    <button class="btn-close" (click)="fecharDrawer()">✕</button>
+  </div>
+
+  <form (ngSubmit)="salvar()" class="form-drawer">
+
+    <label>Nome</label>
     <input
       type="text"
       class="form-control"
-      placeholder="Nome"
       [(ngModel)]="novoTema.nome"
       name="nome"
       required
     />
-  </div>
 
-  <div class="col-md-6">
-    <input
-      type="text"
+    <label>Descrição</label>
+    <textarea
       class="form-control"
-      placeholder="Descrição"
       [(ngModel)]="novoTema.descricao"
-      name="descricao"
-      required
-    />
-  </div>
+      name="descricao">
+    </textarea>
 
-  <div class="col-md-2 text-center">
-    <button type="submit" class="btn btn-primary w-100">
+    <button type="submit" class="btn-salvar">
       {{ editandoId ? 'Atualizar' : 'Salvar' }}
     </button>
-  </div>
-
-  <div *ngIf="editandoId" class="col-12 text-center">
-    <button type="button" class="btn btn-secondary btn-sm" (click)="cancelarEdicao()">
-      Cancelar Edição
-    </button>
-  </div>
-</form>
-
-<table class="table table-striped text-center align-middle">
-  <thead class="table-light">
-    <tr>
-      <th>Nome</th>
-      <th>Descrição</th>
-      <th>Ações</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let tema of (temas$ | async)">
-      <td>{{ tema.nome }}</td>
-      <td>{{ tema.descricao }}</td>
-      <td>
-        <button class="btn btn-sm btn-outline-primary me-2" (click)="editar(tema.id!)">
-          Editar
-        </button>
-        <button class="btn btn-sm btn-outline-danger" (click)="deletar(tema.id!)">
-          Excluir
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  </form>
+</div>

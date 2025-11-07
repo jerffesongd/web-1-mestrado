@@ -13,8 +13,25 @@
   margin-bottom: 20px;
 }
 
+.info-secundaria{
+  color: #555;
+  font-size: 18px;
+  strong{
+    color: #444;
+  }
+}
+
+.info-terciaria{
+  font-size: 14px;
+  color: #777;
+
+  strong{
+    color: #666;
+  }
+}
+
 .btn-nova-frase {
-  background-color: #6c63ff;
+  background-color: var(--blue-primary);
   color: white;
   border: none;
   padding: 10px 16px;
@@ -54,8 +71,10 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 8px;
+  margin-top: 20px;
   font-size: 0.9rem;
+  text-align: right;
+  justify-content: end;
 }
 
 /* botões dentro do card */
@@ -63,70 +82,26 @@
   margin-top: 12px;
   display: flex;
   gap: 10px;
+  justify-content: end;
 }
 .btn-acao {
-  padding: 5px 12px;
+  padding: 5px;
   border-radius: 6px;
   cursor: pointer;
   border: none;
+  font-size: 14px;
 }
 .edit {
-  background-color: #6c63ff;
-  color: white;
+  color: var(--blue-primary);
+}
+.edit:hover {
+  border: solid var(--blue-primary) 1px;
 }
 .delete {
-  background-color: #ff6584;
-  color: white;
+  color: #ff6584;
+}
+.delete:hover {
+  border: solid #ff6584 1px;
 }
 
-/* Drawer lateral */
-.drawer {
-  position: fixed;
-  right: -420px;
-  top: 0;
-  height: 100vh;
-  width: 400px;
-  background: #f7f7fb;
-  padding: 20px;
-  box-shadow: -3px 0 8px rgba(0,0,0,0.1);
-  transition: right 0.3s;
-}
-.drawer.open {
-  right: 0;
-}
 
-.drawer-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.btn-close {
-  border: none;
-  background: transparent;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.form-drawer {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.form-drawer select,
-.form-drawer textarea {
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid #bbb;
-}
-
-.btn-salvar {
-  background-color: #6c63ff;
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}

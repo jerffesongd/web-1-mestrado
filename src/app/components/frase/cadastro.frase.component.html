@@ -16,16 +16,16 @@
       <div class="frase-texto">“{{ frase.texto }}”</div>
 
       <div class="frase-info">
-        <span><strong>Autor:</strong> {{ getAutorNome(frase.autorId) }}</span>
-        <span><strong>Tema:</strong> {{ getTemaNome(frase.temaId) }}</span>
-        <span><strong>Categoria:</strong> {{ frase.categoria }}</span>
-        <span><strong>Criado por:</strong> {{ getUsuarioNome(frase.criadoPor) }}</span>
-        <span><strong>Em:</strong> {{ frase.criadoEm?.toDate?.() | date:'dd/MM/yyyy HH:mm' }}</span>
+        <span class="info-secundaria"><strong>Autor:</strong> {{ getAutorNome(frase.autorId) }}</span>
+        <span class="info-secundaria"><strong>Tema:</strong> {{ getTemaNome(frase.temaId) }}</span>
+        <span class="info-secundaria mb-2"><strong>Categoria:</strong> {{ frase.categoria }}</span>
+        <span class="info-terciaria"><strong>Criado por:</strong> {{ getUsuarioNome(frase.criadoPor) }}</span>
+        <span class="info-terciaria"><strong>Em:</strong> {{ frase.criadoEm?.toDate?.() | date:'dd/MM/yyyy HH:mm' }}</span>
       </div>
 
       <div class="acoes">
-        <button class="btn-acao edit" (click)="editar(frase.id!)">Editar</button>
-        <button class="btn-acao delete" (click)="deletar(frase.id!)">Excluir</button>
+        <span class="btn-acao edit" (click)="editar(frase.id!)">Editar</span>
+        <span class="btn-acao delete" (click)="deletar(frase.id!)">Excluir</span>
       </div>
     </div>
   </div>
@@ -34,7 +34,7 @@
 <!-- DRAWER LATERAL -->
 <div class="drawer" [class.open]="drawerAberto">
   <div class="drawer-header">
-    <h3>{{ editandoId ? 'Editar Frase' : 'Nova Frase' }}</h3>
+    <h3 class="titulo-cadastro">{{ editandoId ? 'Editar Frase' : 'Nova Frase' }}</h3>
     <button class="btn-close" (click)="fecharDrawer()">✕</button>
   </div>
 

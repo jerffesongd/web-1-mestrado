@@ -9,7 +9,8 @@ import {
   deleteDoc,
   updateDoc,
   doc,
-  getDoc
+  getDoc,
+  serverTimestamp
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { MensagemComponent } from '../mensagem/mensagem.component';
@@ -17,6 +18,7 @@ import { TipoMensagem } from '../model/TipoMensagem';
 import { Autor } from '../model/Autor';
 import { Tema } from '../model/Tema';
 import { Frase } from '../model/Frase';
+import { SessaoService, UsuarioLogado } from '../../service/sessao.service';
 
 
 
@@ -30,6 +32,8 @@ export class CadastroFraseComponent {
   frases$: Observable<Frase[]>;
   autores$: Observable<Autor[]>;
   temas$: Observable<Tema[]>;
+  usuarios$: Observable<UsuarioLogado[]>;
+  usuariosSnapshot: UsuarioLogado[] = [];
 
   autoresSnapshot: Autor[] = [];
   temasSnapshot: Tema[] = [];
@@ -40,7 +44,10 @@ export class CadastroFraseComponent {
   mensagem: string | null = null;
   tipoMensagem: TipoMensagem | null = null;
 
-  constructor(private firestore: Firestore) {
+  constructor(
+    private firestore: Firestore,
+    private sessaoService: SessaoService // ✅ pegando o usuário logado
+  ) {
     const frasesRef = collection(this.firestore, 'frases');
     const autoresRef = collection(this.firestore, 'autores');
     const temasRef = collection(this.firestore, 'temas');
@@ -49,9 +56,13 @@ export class CadastroFraseComponent {
     this.autores$ = collectionData(autoresRef, { idField: 'id' }) as Observable<Autor[]>;
     this.temas$ = collectionData(temasRef, { idField: 'id' }) as Observable<Tema[]>;
 
-    // Guardamos snapshots para uso nos métodos getAutorNome e getTemaNome
     this.autores$.subscribe(data => (this.autoresSnapshot = data));
     this.temas$.subscribe(data => (this.temasSnapshot = data));
+
+    const usuariosRef = collection(this.firestore, 'usuarios');
+    this.usuarios$ = collectionData(usuariosRef, { idField: 'id' }) as Observable<UsuarioLogado[]>;
+
+    this.usuarios$.subscribe(data => (this.usuariosSnapshot = data));
   }
 
   private exibirMensagem(mensagem: string, tipo: TipoMensagem) {
@@ -75,16 +86,24 @@ export class CadastroFraseComponent {
         return;
       }
 
+      const usuario = this.sessaoService.getUsuario();
+      if (!usuario) {
+        this.exibirMensagem('Você precisa estar logado para cadastrar frases.', TipoMensagem.ERRO);
+        return;
+      }
+
       const frasesRef = collection(this.firestore, 'frases');
 
       if (this.editandoId) {
         const docRef = doc(this.firestore, `frases/${this.editandoId}`);
+
         await updateDoc(docRef, {
           texto: this.novaFrase.texto,
           autorId: this.novaFrase.autorId,
           temaId: this.novaFrase.temaId,
           categoria: this.novaFrase.categoria
         });
+
         this.exibirMensagem('Frase atualizada com sucesso!', TipoMensagem.SUCESSO);
         this.editandoId = null;
       } else {
@@ -92,8 +111,11 @@ export class CadastroFraseComponent {
           texto: this.novaFrase.texto,
           autorId: this.novaFrase.autorId,
           temaId: this.novaFrase.temaId,
-          categoria: this.novaFrase.categoria
+          categoria: this.novaFrase.categoria,
+          criadoPor: usuario.id,              // ✅ aqui salvamos o usuário que criou a frase
+          criadoEm: serverTimestamp()               // opcional: timestamp
         });
+
         this.exibirMensagem('Frase cadastrada com sucesso!', TipoMensagem.SUCESSO);
       }
 
@@ -149,4 +171,9 @@ export class CadastroFraseComponent {
     const tema = this.temasSnapshot.find(t => t.id === id);
     return tema ? tema.nome : '';
   }
+
+  getUsuarioNome(id: string): string {
+    const usuario = this.usuariosSnapshot.find(u => u.id === id);
+    return usuario ? usuario.nomeExibicao ?? usuario.nome : '—';
+}
 }

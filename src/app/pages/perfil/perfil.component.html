@@ -1,0 +1,25 @@
+<div class="perfil-container">
+  <h2>Meu Perfil</h2>
+
+  <form (ngSubmit)="salvar()">
+
+    <label>Nome</label>
+    <input type="text" [(ngModel)]="usuario()!.nome" name="nome" />
+
+    <label>Email</label>
+    <input type="email" [(ngModel)]="usuario()!.email" name="email" />
+
+    <label>Nome de exibição</label>
+    <input type="text" [(ngModel)]="usuario()!.nomeExibicao" name="nomeExibicao" />
+
+    <button type="submit">Salvar alterações</button>
+  </form>
+
+  @if(mensagemSucesso()){
+    <div class="alert sucesso">{{ mensagemSucesso() }}</div>
+  }
+
+  @if(mensagemErro()){
+    <div class="alert erro">{{ mensagemErro() }}</div>
+  }
+</div>

@@ -9,6 +9,7 @@ import { CadastroUsuarioComponent } from './pages/cadastro-usuario/cadastro-usua
 import { FeedComponent } from './components/feed/feed.component';
 import { AutoresComponent } from './components/autor/listagem/autores.component';
 import { AutorDetalheComponent } from './components/autor/detalhes/autor.detalhes.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
 
 export const routes: Routes = [
     { path: '', component: FeedComponent },
@@ -21,5 +22,6 @@ export const routes: Routes = [
     { path: 'usuario/cadastro', component: CadastroUsuarioComponent },
     { path: 'autores', component: AutoresComponent },
     { path: 'autores/:id', component: AutorDetalheComponent },
+    { path: 'perfil', component: PerfilComponent },
     { path: '**', redirectTo: '' }
 ];

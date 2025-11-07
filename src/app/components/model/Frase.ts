@@ -4,4 +4,6 @@ export interface Frase {
   autorId: string;
   temaId: string;
   categoria: string;
+  criadoPor: string;
+  criadoEm: any;
 }

@@ -95,13 +95,13 @@
   color: var(--blue-primary);
 }
 .edit:hover {
-  border: solid var(--blue-primary) 1px;
+  text-decoration: underline;
 }
 .delete {
   color: #ff6584;
 }
 .delete:hover {
-  border: solid #ff6584 1px;
+  text-decoration: underline;
 }
 
 

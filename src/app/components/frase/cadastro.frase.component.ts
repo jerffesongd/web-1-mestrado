@@ -192,6 +192,10 @@ export class CadastroFraseComponent {
     return usuario ? usuario.nomeExibicao ?? usuario.nome : '—';
   }
 
+  usuarioLogado(){
+    return this.sessaoService.isLogado()
+  }
+
   drawerAberto = false;
 
   abrirDrawer() {

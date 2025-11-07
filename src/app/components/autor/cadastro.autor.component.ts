@@ -15,6 +15,7 @@ import { Observable } from 'rxjs';
 import { Autor } from '../model/Autor';
 import { MensagemComponent } from '../mensagem/mensagem.component';
 import { TipoMensagem } from '../model/TipoMensagem';
+import { SessaoService } from '../../service/sessao.service';
 
 @Component({
   selector: 'app-cadastro-autor',
@@ -31,7 +32,7 @@ export class CadastroAutorComponent {
   mensagem: string | null = null;
   tipoMensagem: TipoMensagem | null = null;
 
-  constructor(private firestore: Firestore) {
+  constructor(private firestore: Firestore, private sessaoService: SessaoService) {
     const autoresRef = collection(this.firestore, 'autores');
     this.autores$ = collectionData(autoresRef, { idField: 'id' }) as Observable<Autor[]>;
   }
@@ -112,6 +113,10 @@ export class CadastroAutorComponent {
     this.editandoId = null;
     this.novoAutor = {};
     this.exibirMensagem('Edição cancelada.', TipoMensagem.AVISO);
+  }
+
+  usuarioLogado(){
+    return this.sessaoService.isLogado()
   }
 
   drawerAberto = false;

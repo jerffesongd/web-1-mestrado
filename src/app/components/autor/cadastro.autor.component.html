@@ -3,7 +3,9 @@
   <!-- Header -->
   <div class="header">
     <h2>Autores</h2>
-    <button class="btn-nova-frase" (click)="abrirDrawer()">+ Novo autor</button>
+    @if(usuarioLogado()){
+      <button class="btn-nova-frase" (click)="abrirDrawer()">+ Novo autor</button>
+    }
   </div>
 
   <!-- MENSAGEM -->
@@ -23,10 +25,13 @@
         </div>
 
       }
+
+      @if(usuarioLogado()){
       <div class="acoes">
         <span class="btn-acao edit" (click)="editar(autor.id!)">Editar</span>
         <span class="btn-acao delete" (click)="deletar(autor.id!)">Excluir</span>
       </div>
+      }
     </div>
   </div>
 </div>

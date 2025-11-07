@@ -3,7 +3,9 @@
   <!-- Header -->
   <div class="header">
     <h2>Frases</h2>
-    <button class="btn-nova-frase" (click)="abrirDrawer()">+ Nova frase</button>
+    @if(usuarioLogado()){
+      <button class="btn-nova-frase" (click)="abrirDrawer()">+ Nova frase</button>
+    }
   </div>
 
   <!-- MENSAGEM -->
@@ -23,10 +25,12 @@
         <span><strong>Em:</strong> {{ frase.criadoEm?.toDate?.() | date:'dd/MM/yyyy HH:mm' }}</span>
       </div>
 
-      <div class="acoes">
-        <span class="btn-acao edit" (click)="editar(frase.id!)">Editar</span>
-        <span class="btn-acao delete" (click)="deletar(frase.id!)">Excluir</span>
-      </div>
+      @if(usuarioLogado()){
+        <div class="acoes">
+          <span class="btn-acao edit" (click)="editar(frase.id!)">Editar</span>
+          <span class="btn-acao delete" (click)="deletar(frase.id!)">Excluir</span>
+        </div>
+      }
     </div>
   </div>
 </div>

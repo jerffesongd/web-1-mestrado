@@ -1,14 +1,13 @@
-<div class="card-frase" *ngFor="let frase of (frases$ | async)">
+<div class="card-frase">
 
     <div class="frase-texto">“{{ textoLimitado }}”</div>
     
-
     <div class="frase-info">
         <span><strong>Autor:</strong> {{ getAutorNome() }}</span>
         <span><strong>Tema:</strong> {{ getTemaNome() }}</span>
         <span><strong>Categoria:</strong> {{ getCategoriaNome() }}</span>
         <span><strong>Criado por:</strong> {{ getUsuarioNome() }}</span>
-        <span><strong>Em:</strong> {{ frase.criadoEm?.toDate?.() | date:'dd/MM/yyyy HH:mm' }}</span>
+        <span><strong>Em:</strong> {{ frase?.criadoEm?.toDate?.() | date:'dd/MM/yyyy HH:mm' }}</span>
         <button class="btn btn-sm" (click)="copiarTexto()">
             <i class="fas fa-clipboard"></i>
         </button>

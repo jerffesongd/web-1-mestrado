@@ -6,6 +6,7 @@ import { CadastroTemaComponent } from './components/tema/cadastro.tema.component
 import { CadastroAutorComponent } from './components/autor/cadastro.autor.component';
 import { LoginComponent } from './pages/login/login.component';
 import { CadastroUsuarioComponent } from './pages/cadastro-usuario/cadastro-usuario.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -15,5 +16,6 @@ export const routes: Routes = [
     { path: 'temas/crud', component: CadastroTemaComponent },
     { path: 'login', component: LoginComponent },
     { path: 'usuario/cadastro', component: CadastroUsuarioComponent },
+    { path: 'perfil', component: PerfilComponent },
     { path: '**', redirectTo: '' }
 ];

@@ -1,0 +1,66 @@
+.perfil-container {
+  max-width: 450px;
+  margin: 40px auto;
+  padding: 30px;
+  border-radius: 12px;
+  background: #f6f9fc;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, .1);
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  text-align: center;
+  color: #187bcd;
+}
+
+label {
+  margin-top: 15px;
+  font-weight: 600;
+  display: block;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 4px;
+  border: 1px solid #c9d9f2;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 1rem;
+}
+
+button {
+  margin-top: 25px;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  background: #187bcd;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: #0d6cb5;
+}
+
+.alert {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+  font-size: .95rem;
+}
+
+.sucesso {
+  background: #c6f6d5;
+  color: #1b5e20;
+}
+
+.erro {
+  background: #ffd6d6;
+  color: #8b0000;
+}

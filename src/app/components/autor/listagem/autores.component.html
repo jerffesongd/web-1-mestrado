@@ -1,0 +1,25 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Lista de Autores</h2>
+
+  <div class="row">
+    <ng-container *ngIf="autoresComFrases$ | async as autoresComFrases; else loading">
+      @for (item of autoresComFrases; track item.autor.id) {
+        <div class="col-md-4 mb-3">
+          <!-- 🔹 Card clicável -->
+          <div class="card shadow-sm h-100 cursor-pointer" (click)="verDetalhesAutor(item.autor.id)">
+            <div class="card-body text-center">
+              <h5 class="card-title">{{ item.autor.nome }} {{ item.autor.sobrenome }}</h5>
+              <p class="card-text text-muted">
+                {{ item.totalFrases }} frase{{ item.totalFrases !== 1 ? 's' : '' }}
+              </p>
+            </div>
+          </div>
+        </div>
+      }
+    </ng-container>
+
+    <ng-template #loading>
+      <p class="text-center text-muted">Carregando autores...</p>
+    </ng-template>
+  </div>
+</div>

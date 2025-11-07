@@ -17,6 +17,13 @@
         </div>
       }
     </div>
+
+    <!-- 🔹 Botão "Ver todos os autores" -->
+    <div class="text-center mt-3">
+      <a class="btn btn-primary" [routerLink]="['/autores']">
+      Ver todos os autores
+      </a>
+    </div>
   </section>
 
   <hr />
@@ -52,6 +59,13 @@
             </div>
           }
         </div>
+
+        <!-- 🔹 Botão "Ver todas as categorias" -->
+        <div class="text-center mt-3">
+          <button class="btn btn-secondary" (click)="verMaisCategoria()">
+            Ver todas as categorias
+          </button>
+        </div>
       </ng-container>
     </ng-container>
     <ng-template #loadingCategorias>
@@ -72,6 +86,7 @@
               <div class="card shadow-sm">
                 <div class="card-body">
                   <h4 class="card-title text-center">{{ tema.nome }}</h4>
+
                   <!-- Frases desse tema -->
                   <ul class="list-group list-group-flush mb-2">
                     @for (frase of filtrarFrases(frases, 'tema', tema.id ?? ''); track frase.id) {
@@ -90,6 +105,13 @@
               </div>
             </div>
           }
+        </div>
+
+        <!-- 🔹 Botão "Ver todos os temas" -->
+        <div class="text-center mt-3">
+          <button class="btn btn-dark" (click)="verMaisTema()">
+            Ver todos os temas
+          </button>
         </div>
       </ng-container>
     </ng-container>

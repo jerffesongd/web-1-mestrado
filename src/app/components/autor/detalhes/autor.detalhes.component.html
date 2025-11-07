@@ -1,0 +1,57 @@
+<div class="container mt-4" *ngIf="autor$ | async as autor; else loading">
+  <h2 class="text-center mb-5">{{ autor.nome }} {{ autor.sobrenome }}</h2>
+
+  <!-- ==================== FRASES POR CATEGORIA ==================== -->
+  <section class="mb-5" *ngIf="frases$ | async as frases">
+    <h3 class="text-center mb-4">Frases por Categoria</h3>
+    <div class="row">
+      <div class="col-md-4 mb-4" *ngFor="let categoria of categorias">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title text-center">{{ categoria }}</h5>
+            <ul class="list-group list-group-flush mt-3">
+              <li class="list-group-item bg-light text-dark"
+                  *ngFor="let f of filtrarFrasesPorCampo(frases, 'categoria', categoria) | slice:0:3">
+                {{ f.texto }}
+              </li>
+            </ul>
+            <div class="text-center mt-3">
+              <button class="btn btn-outline-secondary btn-sm">
+                Ver todos
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FRASES POR TEMA ==================== -->
+  <section class="mb-5" *ngIf="frases$ | async as frases">
+    <h3 class="text-center mb-4">Frases por Tema</h3>
+    <div class="row">
+      <div class="col-md-6 mb-4" *ngFor="let tema of temas">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title text-center">{{ tema | titlecase }}</h5>
+            <ul class="list-group list-group-flush mt-3">
+              <li class="list-group-item bg-light text-dark"
+                  *ngFor="let f of filtrarFrasesPorCampo(frases, 'temaId', tema) | slice:0:3">
+                {{ f.texto }}
+              </li>
+            </ul>
+            <div class="text-center mt-3">
+              <button class="btn btn-outline-dark btn-sm">
+                Ver todos
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<ng-template #loading>
+  <p class="text-center text-muted">Carregando autor e frases...</p>
+</ng-template>

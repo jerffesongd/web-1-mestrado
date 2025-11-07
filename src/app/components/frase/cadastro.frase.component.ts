@@ -19,6 +19,7 @@ import { Autor } from '../model/Autor';
 import { Tema } from '../model/Tema';
 import { Frase } from '../model/Frase';
 import { SessaoService, UsuarioLogado } from '../../service/sessao.service';
+import { Categoria } from '../model/Categoria';
 
 
 
@@ -33,11 +34,15 @@ export class CadastroFraseComponent {
   frases$: Observable<Frase[]>;
   autores$: Observable<Autor[]>;
   temas$: Observable<Tema[]>;
+
+  categorias$: Observable<Categoria[]>;
+  
   usuarios$: Observable<UsuarioLogado[]>;
   usuariosSnapshot: UsuarioLogado[] = [];
 
   autoresSnapshot: Autor[] = [];
   temasSnapshot: Tema[] = [];
+  categoriasSnapshot: Tema[] = [];
 
   novaFrase: Partial<Frase> = {};
   editandoId: string | null = null;
@@ -52,13 +57,16 @@ export class CadastroFraseComponent {
     const frasesRef = collection(this.firestore, 'frases');
     const autoresRef = collection(this.firestore, 'autores');
     const temasRef = collection(this.firestore, 'temas');
+    const categoriasRef = collection(this.firestore, 'categorias');
 
     this.frases$ = collectionData(frasesRef, { idField: 'id' }) as Observable<Frase[]>;
     this.autores$ = collectionData(autoresRef, { idField: 'id' }) as Observable<Autor[]>;
     this.temas$ = collectionData(temasRef, { idField: 'id' }) as Observable<Tema[]>;
+    this.categorias$ = collectionData(categoriasRef, { idField: 'id' }) as Observable<Tema[]>;
 
     this.autores$.subscribe(data => (this.autoresSnapshot = data));
     this.temas$.subscribe(data => (this.temasSnapshot = data));
+    this.categorias$.subscribe(data => (this.categoriasSnapshot = data));
 
     const usuariosRef = collection(this.firestore, 'usuarios');
     this.usuarios$ = collectionData(usuariosRef, { idField: 'id' }) as Observable<UsuarioLogado[]>;

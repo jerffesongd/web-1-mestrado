@@ -5,23 +5,23 @@
     <h2 class="text-center mb-4">Autores</h2>
     <div class="row">
       @for (autor of autores$ | async; track autor.id) {
-        <div class="col-md-3 mb-3">
-          <div class="card h-100 text-center shadow-sm">
-            <div class="card-body">
-              <h5 class="card-title">{{ autor.nome }} {{ autor.sobrenome }}</h5>
-              <button class="btn btn-outline-primary btn-sm" (click)="verMaisAutor(autor.id ?? '')">
-                Ver mais
-              </button>
-            </div>
+      <div class="col-md-3 mb-3">
+        <div class="card h-100 text-center shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">{{ autor.nome }} {{ autor.sobrenome }}</h5>
+            <a [routerLink]="['/autores', autor.id]" class="btn btn-outline-primary btn-sm">
+              Ver mais
+            </a>
           </div>
         </div>
+      </div>
       }
     </div>
 
     <!-- 🔹 Botão "Ver todos os autores" -->
     <div class="text-center mt-3">
       <a class="btn btn-primary" [routerLink]="['/autores']">
-      Ver todos os autores
+        Ver todos os autores
       </a>
     </div>
   </section>
@@ -35,28 +35,28 @@
       <ng-container *ngIf="(frases$ | async) as frases">
         <div class="row">
           @for (categoria of categorias; track categoria.id) {
-            <div class="col-md-6 mb-4">
-              <div class="card shadow-sm">
-                <div class="card-body">
-                  <h4 class="card-title text-center">{{ categoria.nome }}</h4>
+          <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h4 class="card-title text-center">{{ categoria.nome }}</h4>
 
-                  <!-- Frases dessa categoria -->
-                  <ul class="list-group list-group-flush mb-2">
-                    @for (frase of filtrarFrases(frases, 'categoria', categoria.id ?? ''); track frase.id) {
-                      <li class="list-group-item bg-dark text-light">
-                        {{ frase.texto }}
-                      </li>
-                    }
-                  </ul>
+                <!-- Frases dessa categoria -->
+                <ul class="list-group list-group-flush mb-2">
+                  @for (frase of filtrarFrases(frases, 'categoria', categoria.id ?? ''); track frase.id) {
+                  <li class="list-group-item p-0 border-0">
+                      <app-frase-card [texto]="frase.texto"></app-frase-card>
+                    </li>
+                  }
+                </ul>
 
-                  <div class="text-center">
-                    <button class="btn btn-outline-secondary btn-sm" (click)="verMaisCategoria(categoria.id ?? '')">
-                      Ver todos
-                    </button>
-                  </div>
+                <div class="text-center">
+                  <button class="btn btn-outline-secondary btn-sm" (click)="verMaisCategoria(categoria.id ?? '')">
+                    Ver todos
+                  </button>
                 </div>
               </div>
             </div>
+          </div>
           }
         </div>
 
@@ -82,28 +82,28 @@
       <ng-container *ngIf="(frases$ | async) as frases">
         <div class="row">
           @for (tema of temas; track tema.id) {
-            <div class="col-md-6 mb-4">
-              <div class="card shadow-sm">
-                <div class="card-body">
-                  <h4 class="card-title text-center">{{ tema.nome }}</h4>
+          <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h4 class="card-title text-center">{{ tema.nome }}</h4>
 
-                  <!-- Frases desse tema -->
-                  <ul class="list-group list-group-flush mb-2">
-                    @for (frase of filtrarFrases(frases, 'tema', tema.id ?? ''); track frase.id) {
-                      <li class="list-group-item bg-dark text-light">
-                        {{ frase.texto }}
-                      </li>
-                    }
-                  </ul>
+                <!-- Frases desse tema -->
+                <ul class="list-group list-group-flush mb-2">
+                  @for (frase of filtrarFrases(frases, 'tema', tema.id ?? ''); track frase.id) {
+                    <li class="list-group-item p-0 border-0">
+                      <app-frase-card [texto]="frase.texto"></app-frase-card>
+                    </li>
+                  }
+                </ul>
 
-                  <div class="text-center">
-                    <button class="btn btn-outline-dark btn-sm" (click)="verMaisTema(tema.id ?? '')">
-                      Ver todos
-                    </button>
-                  </div>
+                <div class="text-center">
+                  <button class="btn btn-outline-dark btn-sm" (click)="verMaisTema(tema.id ?? '')">
+                    Ver todos
+                  </button>
                 </div>
               </div>
             </div>
+          </div>
           }
         </div>
 

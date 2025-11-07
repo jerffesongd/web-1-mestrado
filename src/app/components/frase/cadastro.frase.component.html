@@ -55,11 +55,16 @@
     </select>
 
     <label>Categoria</label>
-    <select [(ngModel)]="novaFrase.categoria" name="categoria" required>
-      <option value="motivacional">Motivacional</option>
-      <option value="filosófica">Filosófica</option>
-      <option value="engraçada">Engraçada</option>
-      <option value="reflexiva">Reflexiva</option>
+    <select
+      class="form-select"
+      [(ngModel)]="novaFrase.categoria"
+      name="categoria"
+      required
+    >
+      <option value="" disabled selected>Selecione o tema</option>
+      <option *ngFor="let categoria of (categorias$ | async)" [value]="categoria.id">
+        {{ categoria.nome }}
+      </option>
     </select>
 
     <label>Frase</label>
@@ -69,4 +74,4 @@
       {{ editandoId ? 'Atualizar' : 'Salvar' }}
     </button>
   </form>
-</div>
+

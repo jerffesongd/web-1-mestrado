@@ -8,6 +8,7 @@ import { Tema } from '../model/Tema';
 import { Categoria } from '../model/Categoria';
 import { CommonModule } from '@angular/common';
 import { limit, query } from 'firebase/firestore';
+import { FraseCardComponent } from '../frase/card/frase.card.component';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { limit, query } from 'firebase/firestore';
     templateUrl: './feed.component.html',
     styleUrls: ['./feed.component.scss'],
     standalone: true,
-    imports: [CommonModule, RouterLink]
+    imports: [CommonModule, RouterLink, FraseCardComponent]
 })
 export class FeedComponent implements OnInit {
     autores$!: Observable<Autor[]>;

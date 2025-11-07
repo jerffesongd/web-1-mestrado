@@ -74,14 +74,6 @@ export class FeedComponent implements OnInit {
   // ==================== FILTRAR FRASES ====================
   filtrarFrases(tipo: 'categoria' | 'tema', id: string | undefined): Frase[] {
     if (!this.frases || !id) return [];
-
-      console.log("******************************************************")
-    console.log(this.frases
-      .filter(f => (tipo === 'categoria' ? f.categoria === id : f.temaId === id))
-      //.filter(f => !ids.has(f.id) && ids.add(f.id))
-      .slice(0, 2))
-
-      console.log("******************************************************")
     return this.frases
       .filter(f => (tipo === 'categoria' ? f.categoria === id : f.temaId === id))
       //.filter(f => !ids.has(f.id) && ids.add(f.id))

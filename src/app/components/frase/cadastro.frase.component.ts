@@ -199,7 +199,6 @@ export class CadastroFraseComponent {
   drawerAberto = false;
 
   abrirDrawer() {
-    console.log("teste aqui")
     this.editandoId = null;
     this.novaFrase = {};
     this.drawerAberto = true;

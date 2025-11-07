@@ -23,9 +23,15 @@
         <li class="nav-item">
           <a class="nav-link" href="categorias/crud">Categorias</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="login">Login</a>
-        </li>
+        @if(!usuarioLogado()){
+          <li class="nav-item">
+            <a class="nav-link" href="login">Login</a>
+          </li>
+        }@else{
+          <li class="nav-item">
+            <button type="button" class="nav-link" (click)="logout()">Sair</button>
+          </li>
+        } 
       </ul>
     </div>
   </div>

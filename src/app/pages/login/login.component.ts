@@ -17,8 +17,8 @@ export class LoginComponent {
 
   constructor(private sessaoService: SessaoService, private router: Router) {}
 
-  fazerLogin() {
-    const sucesso = this.sessaoService.login(this.email, this.senha);
+  async fazerLogin() {
+    const sucesso = await this.sessaoService.login(this.email, this.senha);
 
     if (!sucesso) {
       this.erro.set('Usuário ou senha inválidos');
@@ -27,5 +27,4 @@ export class LoginComponent {
 
     this.router.navigate(['/home']);
   }
-
 }

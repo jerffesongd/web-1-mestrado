@@ -17,7 +17,12 @@
       </div>
 
       <button type="submit" class="btn-login mt-4">Entrar</button>
-      <p class="erro" *ngIf="erro()">{{ erro() }}</p>
+      @if(erro()){
+        <p class="erro mb-0" *ngIf="erro()">{{ erro() }}</p>
+      }@else{
+        <p class="erro mb-0">&nbsp;</p>
+      }
+      
     </form>
     <p class="link-cadastro">Ainda não tem cadastro?<br> <a href="/usuario/cadastro">Cadastre-se aqui.</a></p>
   </div>

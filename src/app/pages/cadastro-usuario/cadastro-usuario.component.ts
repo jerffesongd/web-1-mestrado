@@ -21,14 +21,18 @@ export class CadastroUsuarioComponent {
 
   constructor(private sessaoService: SessaoService, private router: Router) {}
 
-  registrar() {
+  async registrar() {
     if (!this.nome.trim() || !this.email.trim() || !this.senha.trim()) {
       this.erro.set('Preencha todos os campos');
       return;
     }
 
-    // Aqui você pode futuramente salvar no backend
-    this.sessaoService.login(this.email, this.senha);
+    const sucesso = await this.sessaoService.registrar(this.nome, this.email, this.senha);
+
+    if (!sucesso) {
+      this.erro.set('Email já está cadastrado.');
+      return;
+    }
 
     this.sucesso.set('Cadastro realizado com sucesso!');
     this.erro.set(null);

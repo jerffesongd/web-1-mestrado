@@ -16,14 +16,9 @@ import { MensagemComponent } from '../mensagem/mensagem.component';
 import { TipoMensagem } from '../model/TipoMensagem';
 import { Autor } from '../model/Autor';
 import { Tema } from '../model/Tema';
+import { Frase } from '../model/Frase';
 
-export interface Frase {
-  id?: string;
-  texto: string;
-  autorId: string;
-  temaId: string;
-  categoria: string;
-}
+
 
 @Component({
   selector: 'app-cadastro-frase',

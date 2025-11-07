@@ -6,9 +6,11 @@ import { CadastroTemaComponent } from './components/tema/cadastro.tema.component
 import { CadastroAutorComponent } from './components/autor/cadastro.autor.component';
 import { LoginComponent } from './pages/login/login.component';
 import { CadastroUsuarioComponent } from './pages/cadastro-usuario/cadastro-usuario.component';
+import { FeedComponent } from './components/feed/feed.component';
 
 export const routes: Routes = [
-    { path: '', component: HomeComponent },
+    { path: '', component: FeedComponent },
+    { path: 'feed', component: FeedComponent },
     { path: 'autor/crud', component: CadastroAutorComponent },
     { path: 'frases/crud', component: CadastroFraseComponent },
     { path: 'categorias/crud', component: CadastroCategoriaComponent },

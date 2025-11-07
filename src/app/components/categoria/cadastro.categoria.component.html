@@ -1,61 +1,67 @@
-<h2 class="mb-4 text-center">Cadastro de Categorias</h2>
+<div class="container-frases">
 
-<form (ngSubmit)="salvar()" class="row g-3 mb-4">
-  <div class="col-md-4">
+  <!-- Header -->
+  <div class="header">
+    <h2>Categorias</h2>
+    @if(usuarioLogado()){
+      <button class="btn-nova-frase" (click)="abrirDrawer()">+ Nova categoria</button>
+    }
+  </div>
+
+  <!-- MENSAGEM -->
+  <app-mensagem [texto]="mensagem" [tipo]="tipoMensagem"></app-mensagem>
+
+  <!-- LISTAGEM EM CARDS -->
+  <div class="lista-frases">
+    <div class="card-frase" *ngFor="let categoria of (categorias$ | async)">
+
+      <div class="frase-texto">
+        {{ categoria.nome }}
+      </div>
+
+      @if(categoria.descricao){
+      <div class="frase-info">
+        <span>{{ categoria.descricao }}</span>
+      </div>
+      }
+
+      @if(usuarioLogado()){
+      <div class="acoes">
+        <span class="btn-acao edit" (click)="editar(categoria.id!)">Editar</span>
+        <span class="btn-acao delete" (click)="deletar(categoria.id!)">Excluir</span>
+      </div>
+      }
+    </div>
+  </div>
+</div>
+
+<!-- DRAWER LATERAL -->
+<div class="drawer" [class.open]="drawerAberto">
+  <div class="drawer-header">
+    <h3 class="titulo-cadastro">{{ editandoId ? 'Editar Categoria' : 'Nova Categoria' }}</h3>
+    <button class="btn-close" (click)="fecharDrawer()">✕</button>
+  </div>
+
+  <form (ngSubmit)="salvar()" class="form-drawer">
+
+    <label>Nome</label>
     <input
       type="text"
       class="form-control"
-      placeholder="Nome"
       [(ngModel)]="novaCategoria.nome"
       name="nome"
       required
     />
-  </div>
 
-  <div class="col-md-6">
-    <input
-      type="text"
+    <label>Descrição</label>
+    <textarea
       class="form-control"
-      placeholder="Descrição"
       [(ngModel)]="novaCategoria.descricao"
-      name="descricao"
-      required
-    />
-  </div>
+      name="descricao">
+    </textarea>
 
-  <div class="col-md-2 text-center">
-    <button type="submit" class="btn btn-primary w-100">
+    <button type="submit" class="btn-salvar">
       {{ editandoId ? 'Atualizar' : 'Salvar' }}
     </button>
-  </div>
-
-  <div *ngIf="editandoId" class="col-12 text-center">
-    <button type="button" class="btn btn-secondary btn-sm" (click)="cancelarEdicao()">
-      Cancelar Edição
-    </button>
-  </div>
-</form>
-
-<table class="table table-striped text-center align-middle">
-  <thead class="table-light">
-    <tr>
-      <th>Nome</th>
-      <th>Descrição</th>
-      <th>Ações</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let categoria of (categorias$ | async)">
-      <td>{{ categoria.nome }}</td>
-      <td>{{ categoria.descricao }}</td>
-      <td>
-        <button class="btn btn-sm btn-outline-primary me-2" (click)="editar(categoria.id!)">
-          Editar
-        </button>
-        <button class="btn btn-sm btn-outline-danger" (click)="deletar(categoria.id!)">
-          Excluir
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  </form>
+</div>

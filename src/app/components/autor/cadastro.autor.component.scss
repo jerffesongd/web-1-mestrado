@@ -1,0 +1,103 @@
+/* container geral */
+.container-frases {
+  max-width: 850px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* header com botão de nova frase */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.info-secundaria{
+  color: #555;
+  font-size: 18px;
+  strong{
+    color: #444;
+  }
+}
+
+.info-terciaria{
+  font-size: 14px;
+  color: #777;
+
+  strong{
+    color: #666;
+  }
+}
+
+.btn-nova-frase {
+  background-color: var(--blue-primary);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.btn-nova-frase:hover {
+  filter: brightness(0.9);
+}
+
+/* cards das frases */
+.lista-frases {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.card-frase {
+  background: white;
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0px 2px 8px rgba(0,0,0,0.08);
+  transition: transform 0.2s;
+}
+.card-frase:hover {
+  transform: translateY(-3px);
+}
+
+.frase-texto {
+  font-size: 1.3rem;
+  font-style: italic;
+  color: #333;
+}
+
+.frase-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+  font-size: 0.9rem;
+}
+
+/* botões dentro do card */
+.acoes {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+  justify-content: end;
+}
+.btn-acao {
+  padding: 5px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  font-size: 14px;
+}
+.edit {
+  color: var(--blue-primary);
+}
+.edit:hover {
+  border: solid var(--blue-primary) 1px;
+}
+.delete {
+  color: #ff6584;
+}
+.delete:hover {
+  border: solid #ff6584 1px;
+}

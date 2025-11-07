@@ -20,6 +20,7 @@ import { TipoMensagem } from '../model/TipoMensagem';
   selector: 'app-cadastro-autor',
   standalone: true,
   imports: [CommonModule, FormsModule, MensagemComponent],
+  styleUrl: './cadastro.autor.component.scss',
   templateUrl: './cadastro.autor.component.html'
 })
 export class CadastroAutorComponent {
@@ -59,14 +60,16 @@ export class CadastroAutorComponent {
         const docRef = doc(this.firestore, `autores/${this.editandoId}`);
         await updateDoc(docRef, {
           nome: this.novoAutor.nome,
-          sobrenome: this.novoAutor.sobrenome
+          sobrenome: this.novoAutor.sobrenome,
+          descricao: this.novoAutor.descricao
         });
         this.exibirMensagem('Autor atualizado com sucesso!', TipoMensagem.SUCESSO);
         this.editandoId = null;
       } else {
         await addDoc(autoresRef, {
           nome: this.novoAutor.nome,
-          sobrenome: this.novoAutor.sobrenome
+          sobrenome: this.novoAutor.sobrenome,
+          descricao: this.novoAutor.descricao
         });
         this.exibirMensagem('Autor cadastrado com sucesso!', TipoMensagem.SUCESSO);
       }
@@ -84,8 +87,9 @@ export class CadastroAutorComponent {
 
       if (snap.exists()) {
         const data = snap.data() as Autor;
-        this.novoAutor = { nome: data.nome, sobrenome: data.sobrenome };
+        this.novoAutor = { nome: data.nome, sobrenome: data.sobrenome, descricao: data.descricao };
         this.editandoId = id;
+        this.drawerAberto = true;
       }
     } catch {
       this.exibirMensagem('Erro ao carregar o autor para edição.', TipoMensagem.ERRO);
@@ -108,5 +112,17 @@ export class CadastroAutorComponent {
     this.editandoId = null;
     this.novoAutor = {};
     this.exibirMensagem('Edição cancelada.', TipoMensagem.AVISO);
+  }
+
+  drawerAberto = false;
+
+  abrirDrawer() {
+    this.editandoId = null;
+    this.novoAutor = {};
+    this.drawerAberto = true;
+  }
+
+  fecharDrawer() {
+    this.drawerAberto = false;
   }
 }

@@ -8,7 +8,7 @@
     <ng-container *ngIf="frases$ | async as frases; else loadingFrases">
       <ul class="list-group list-group-flush">
         <li class="list-group-item p-0 border-0" *ngFor="let f of frases">
-          <app-frase-card [texto]="f.texto"></app-frase-card>
+          <app-frase-card [frase]="f"></app-frase-card>
         </li>
       </ul>
     </ng-container>

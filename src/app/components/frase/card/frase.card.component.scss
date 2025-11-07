@@ -1,0 +1,50 @@
+div {
+  font-size: 0.95rem;
+}
+
+button {
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+i {
+  pointer-events: none;
+}
+
+
+/* cards das frases */
+.lista-frases {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.card-frase {
+  background: white;
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0px 2px 8px rgba(0,0,0,0.2);
+  transition: transform 0.2s;
+  margin: 10px;
+}
+.card-frase:hover {
+  transform: translateY(-3px);
+}
+
+.frase-texto {
+  font-size: 1.3rem;
+  font-style: italic;
+  color: #333;
+}
+
+.frase-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  text-align: right;
+  justify-content: end;
+}

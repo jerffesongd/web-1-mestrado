@@ -1,62 +1,78 @@
 import { Component, Input } from '@angular/core';
+import { Frase } from '../../model/Frase';
+import { SessaoService, UsuarioLogado } from '../../../service/sessao.service';
+import { collectionData, Firestore } from '@angular/fire/firestore';
+import { collection } from 'firebase/firestore';
+import { Observable } from 'rxjs';
+import { Autor } from '../../model/Autor';
+import { Tema } from '../../model/Tema';
+import { Categoria } from '../../model/Categoria';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-frase-card',
+  templateUrl: './frase.card.component.html',
+  styleUrls: ['./frase.card.component.scss'],
   standalone: true,
-  template: `
-    <div class="p-2 bg-dark text-light rounded mb-2">
-      <div class="d-flex justify-content-between align-items-center mb-2">
-        <span>{{ textoLimitado }}</span>
-        <button class="btn btn-sm btn-outline-light" (click)="copiarTexto()">
-          <i class="fas fa-clipboard"></i>
-        </button>
-      </div>
-      <div class="d-flex gap-2">
-        <button class="btn btn-sm btn-outline-success" (click)="compartilhar('whatsapp')">
-          <i class="fab fa-whatsapp"></i>
-        </button>
-        <button class="btn btn-sm btn-outline-info" (click)="compartilhar('twitter')">
-          <i class="fab fa-twitter"></i>
-        </button>
-        <button class="btn btn-sm btn-outline-primary" (click)="compartilhar('facebook')">
-          <i class="fab fa-facebook-f"></i>
-        </button>
-        <button class="btn btn-sm btn-outline-secondary" (click)="compartilhar('linkedin')">
-          <i class="fab fa-linkedin-in"></i>
-        </button>
-      </div>
-    </div>
-  `,
-  styles: [`
-    div {
-      font-size: 0.95rem;
-    }
-    button {
-      font-size: 0.9rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    i {
-      pointer-events: none;
-    }
-  `]
+  imports: [CommonModule]
 })
 export class FraseCardComponent {
-  @Input() texto: string = '';
+
+  frases$: Observable<Frase[]>;
+  autores$: Observable<Autor[]>;
+  temas$: Observable<Tema[]>;
+
+  categorias$: Observable<Categoria[]>;
+
+  usuarios$: Observable<UsuarioLogado[]>;
+  usuariosSnapshot: UsuarioLogado[] = [];
+
+  autoresSnapshot: Autor[] = [];
+  temasSnapshot: Tema[] = [];
+  categoriasSnapshot: Tema[] = [];
+
+  novaFrase: Partial<Frase> = {};
+  editandoId: string | null = null;
+
+  mensagem: string | null = null;
+  @Input() frase: Frase | undefined;
+
+  constructor(
+    private firestore: Firestore,
+    private sessaoService: SessaoService // ✅ pegando o usuário logado
+  ) {
+    const frasesRef = collection(this.firestore, 'frases');
+    const autoresRef = collection(this.firestore, 'autores');
+    const temasRef = collection(this.firestore, 'temas');
+    const categoriasRef = collection(this.firestore, 'categorias');
+
+    this.frases$ = collectionData(frasesRef, { idField: 'id' }) as Observable<Frase[]>;
+    this.autores$ = collectionData(autoresRef, { idField: 'id' }) as Observable<Autor[]>;
+    this.temas$ = collectionData(temasRef, { idField: 'id' }) as Observable<Tema[]>;
+    this.categorias$ = collectionData(categoriasRef, { idField: 'id' }) as Observable<Tema[]>;
+
+    this.autores$.subscribe(data => (this.autoresSnapshot = data));
+    this.temas$.subscribe(data => (this.temasSnapshot = data));
+    this.categorias$.subscribe(data => (this.categoriasSnapshot = data));
+
+    const usuariosRef = collection(this.firestore, 'usuarios');
+    this.usuarios$ = collectionData(usuariosRef, { idField: 'id' }) as Observable<UsuarioLogado[]>;
+
+    this.usuarios$.subscribe(data => (this.usuariosSnapshot = data));
+  }
 
   get textoLimitado(): string {
-    if (!this.texto) return '';
-    return this.texto.length > 30 ? this.texto.substring(0, 30) + '...' : this.texto;
+    if (!this.frase) return '';
+    return this.frase.texto.length > 30 ? this.frase.texto.substring(0, 30) + '...' : this.frase.texto;
   }
 
   copiarTexto() {
-    navigator.clipboard.writeText(this.texto);
+    navigator.clipboard.writeText(this.frase?.texto || '');
     alert('Frase copiada!');
   }
 
   compartilhar(rede: 'whatsapp' | 'twitter' | 'facebook' | 'linkedin') {
-    const textoEncoded = encodeURIComponent(this.texto);
+    const textoEncoded = encodeURIComponent(this.frase?.texto || '');
     let url = '';
 
     switch (rede) {
@@ -75,5 +91,30 @@ export class FraseCardComponent {
     }
 
     window.open(url, '_blank');
+  }
+
+
+  getAutorNome(): string {
+    const autor = this.autoresSnapshot.find(a => a.id === this.frase?.autorId);
+    return autor ? `${autor.nome} ${autor.sobrenome}` : '';
+  }
+
+  getTemaNome(): string {
+    const tema = this.temasSnapshot.find(t => t.id === this.frase?.temaId);
+    return tema ? tema.nome : '';
+  }
+
+  getCategoriaNome(): string {
+    const categoria = this.categoriasSnapshot.find(t => t.id === this.frase?.categoria);
+    return categoria ? categoria.nome : '';
+  }
+
+  getUsuarioNome(): string {
+    const usuario = this.usuariosSnapshot.find(u => u.id === this.frase?.criadoPor);
+    return usuario ? usuario.nomeExibicao ?? usuario.nome : '—';
+  }
+
+  usuarioLogado() {
+    return this.sessaoService.isLogado()
   }
 }

@@ -15,7 +15,7 @@
                 <ul class="list-group list-group-flush mb-2">
                   @for (frase of filtrarFrases(frases, tema.id ?? ''); track frase.id) {
                     <li class="list-group-item p-0 border-0">
-                      <app-frase-card [texto]="frase.texto"></app-frase-card>
+                      <app-frase-card [frase]="frase"></app-frase-card>
                     </li>
                   }
                 </ul>

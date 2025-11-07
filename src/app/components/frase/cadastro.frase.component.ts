@@ -27,6 +27,7 @@ import { Categoria } from '../model/Categoria';
   selector: 'app-cadastro-frase',
   standalone: true,
   imports: [CommonModule, FormsModule, MensagemComponent],
+  styleUrl: './cadastro.frase.component.scss',
   templateUrl: './cadastro.frase.component.html'
 })
 export class CadastroFraseComponent {
@@ -147,6 +148,7 @@ export class CadastroFraseComponent {
           categoria: data.categoria
         };
         this.editandoId = id;
+        this.drawerAberto = true;
       }
     } catch {
       this.exibirMensagem('Erro ao carregar a frase para edição.', TipoMensagem.ERRO);
@@ -188,5 +190,18 @@ export class CadastroFraseComponent {
   getUsuarioNome(id: string): string {
     const usuario = this.usuariosSnapshot.find(u => u.id === id);
     return usuario ? usuario.nomeExibicao ?? usuario.nome : '—';
-}
+  }
+
+  drawerAberto = false;
+
+  abrirDrawer() {
+    console.log("teste aqui")
+    this.editandoId = null;
+    this.novaFrase = {};
+    this.drawerAberto = true;
+  }
+
+  fecharDrawer() {
+    this.drawerAberto = false;
+  }
 }

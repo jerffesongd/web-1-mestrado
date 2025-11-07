@@ -1,37 +1,60 @@
-<h2 class="mb-4 text-center">Cadastro de Frases</h2>
+<div class="container-frases">
 
-<app-mensagem [texto]="mensagem" [tipo]="tipoMensagem"></app-mensagem>
+  <!-- Header -->
+  <div class="header">
+    <h2>Frases</h2>
+    <button class="btn-nova-frase" (click)="abrirDrawer()">+ Nova frase</button>
+  </div>
 
-<form (ngSubmit)="salvar()" class="row g-3 mb-4">
-  <div class="col-md-4">
-    <select
-      class="form-select"
-      [(ngModel)]="novaFrase.autorId"
-      name="autorId"
-      required
-    >
-      <option value="" disabled selected>Selecione o autor</option>
+  <!-- MENSAGEM -->
+  <app-mensagem [texto]="mensagem" [tipo]="tipoMensagem"></app-mensagem>
+
+  <!-- LISTAGEM EM CARDS -->
+  <div class="lista-frases">
+    <div class="card-frase" *ngFor="let frase of (frases$ | async)">
+
+      <div class="frase-texto">“{{ frase.texto }}”</div>
+
+      <div class="frase-info">
+        <span><strong>Autor:</strong> {{ getAutorNome(frase.autorId) }}</span>
+        <span><strong>Tema:</strong> {{ getTemaNome(frase.temaId) }}</span>
+        <span><strong>Categoria:</strong> {{ getCategoriaNome(frase.categoria) }}</span>
+        <span><strong>Criado por:</strong> {{ getUsuarioNome(frase.criadoPor) }}</span>
+        <span><strong>Em:</strong> {{ frase.criadoEm?.toDate?.() | date:'dd/MM/yyyy HH:mm' }}</span>
+      </div>
+
+      <div class="acoes">
+        <button class="btn-acao edit" (click)="editar(frase.id!)">Editar</button>
+        <button class="btn-acao delete" (click)="deletar(frase.id!)">Excluir</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DRAWER LATERAL -->
+<div class="drawer" [class.open]="drawerAberto">
+  <div class="drawer-header">
+    <h3>{{ editandoId ? 'Editar Frase' : 'Nova Frase' }}</h3>
+    <button class="btn-close" (click)="fecharDrawer()">✕</button>
+  </div>
+
+  <form (ngSubmit)="salvar()" class="form-drawer">
+
+    <label>Autor</label>
+    <select [(ngModel)]="novaFrase.autorId" name="autorId" required>
       <option *ngFor="let autor of (autores$ | async)" [value]="autor.id">
         {{ autor.nome }} {{ autor.sobrenome }}
       </option>
     </select>
-  </div>
 
-  <div class="col-md-4">
-    <select
-      class="form-select"
-      [(ngModel)]="novaFrase.temaId"
-      name="temaId"
-      required
-    >
-      <option value="" disabled selected>Selecione o tema</option>
+    <label>Tema</label>
+    <select [(ngModel)]="novaFrase.temaId" name="temaId" required>
       <option *ngFor="let tema of (temas$ | async)" [value]="tema.id">
         {{ tema.nome }}
       </option>
     </select>
-  </div>
 
-  <div class="col-md-4">
+    <label>Categoria</label>
     <select
       class="form-select"
       [(ngModel)]="novaFrase.categoria"
@@ -43,62 +66,12 @@
         {{ categoria.nome }}
       </option>
     </select>
-  </div>
 
-  <div class="col-12">
-    <textarea
-      class="form-control"
-      placeholder="Digite a frase"
-      [(ngModel)]="novaFrase.texto"
-      name="texto"
-      required
-    ></textarea>
-  </div>
+    <label>Frase</label>
+    <textarea [(ngModel)]="novaFrase.texto" name="texto" required></textarea>
 
-  <div class="col-12 text-center">
-    <button type="submit" class="btn btn-primary w-25">
+    <button type="submit" class="btn-salvar">
       {{ editandoId ? 'Atualizar' : 'Salvar' }}
     </button>
+  </form>
 
-    <button
-      *ngIf="editandoId"
-      type="button"
-      class="btn btn-secondary ms-2"
-      (click)="cancelarEdicao()"
-    >
-      Cancelar Edição
-    </button>
-  </div>
-</form>
-
-<table class="table table-striped text-center align-middle">
-  <thead class="table-light">
-    <tr>
-      <th>Frase</th>
-      <th>Autor</th>
-      <th>Tema</th>
-      <th>Categoria</th>
-      <th>Criado por</th>
-      <th>Criado em</th>
-      <th>Ações</th> 
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let frase of (frases$ | async)">
-      <td>{{ frase.texto }}</td>
-      <td>{{ getAutorNome(frase.autorId) }}</td>
-      <td>{{ getTemaNome(frase.temaId) }}</td>
-      <td>{{ getCategoriaNome(frase.categoria) }}</td>
-      <td>{{ getUsuarioNome(frase.criadoPor) }}</td>
-      <td>{{ frase.criadoEm?.toDate?.() | date:'dd/MM/yyyy HH:mm' }}</td>
-      <td>
-        <button class="btn btn-sm btn-outline-primary me-2" (click)="editar(frase.id!)">
-          Editar
-        </button>
-        <button class="btn btn-sm btn-outline-danger" (click)="deletar(frase.id!)">
-          Excluir
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>

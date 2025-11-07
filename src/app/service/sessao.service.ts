@@ -80,7 +80,7 @@ export class SessaoService {
 
     const docRef = doc(this.firestore, `usuarios/${usuario.id}`);
 
-    // Criar objeto de atualização sem o `id`. Você pode filtrar campos indesejados aqui.
+    // Criar objeto de atualização sem o `id`.
     const { id, ...payload } = usuario;
 
     // Cast para any para contornar a tipagem específica do updateDoc
@@ -95,7 +95,6 @@ export class SessaoService {
     this.usuarioAtual.set(null);
     localStorage.removeItem('usuarioLogado');
     this.router.navigate([''])
-
   }
 
   getUsuario() {

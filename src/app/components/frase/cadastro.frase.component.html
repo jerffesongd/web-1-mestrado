@@ -79,7 +79,9 @@
       <th>Autor</th>
       <th>Tema</th>
       <th>Categoria</th>
-      <th>Ações</th>
+      <th>Criado por</th>
+      <th>Criado em</th>
+      <th>Ações</th> 
     </tr>
   </thead>
   <tbody>
@@ -88,6 +90,8 @@
       <td>{{ getAutorNome(frase.autorId) }}</td>
       <td>{{ getTemaNome(frase.temaId) }}</td>
       <td>{{ frase.categoria }}</td>
+      <td>{{ getUsuarioNome(frase.criadoPor) }}</td>
+      <td>{{ frase.criadoEm?.toDate?.() | date:'dd/MM/yyyy HH:mm' }}</td>
       <td>
         <button class="btn btn-sm btn-outline-primary me-2" (click)="editar(frase.id!)">
           Editar

@@ -1,1 +1,35 @@
-/* You can add global styles to this file, and also import other style files */
+
+:root {
+  --blue-light: #e7f1ff;
+  --blue-primary: #6da9e4;
+  --blue-primary-hover: #5a94ca;
+  --text-title: #5a94ca;
+  --text-subtitle: #5f738a;
+}
+
+html{
+    font-size: 22px;
+    height: 100%;
+}
+
+body {
+  margin: 0;
+  height: auto;
+}
+
+.container-principal{
+  height: auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(145deg, #f8fbff, var(--blue-light));
+  
+
+}
+
+.container-dinamico{
+  flex: 1 1 auto;
+  padding-top: 100px;
+  padding-bottom: 100px;
+    
+}

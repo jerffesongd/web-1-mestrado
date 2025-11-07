@@ -1,0 +1,105 @@
+.background {
+  display: flex;
+  justify-content: center;
+  font-family: "Inter", sans-serif;
+}
+
+.card {
+  width: 500px;
+  height: 620px;
+  padding: 35px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 5px 22px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text-title);
+  margin: 0;
+}
+
+.subtitle {
+  margin-top: -8px;
+  font-size: 0.9rem;
+  color: var(--text-subtitle);
+}
+
+/* Inputs */
+.input-group {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.input-group label {
+  font-size: 0.85rem;
+  color: var(--text-subtitle);
+}
+
+.input-group input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #c5ddf3;
+  background: rgba(255, 255, 255, 0.88);
+  font-size: 0.95rem;
+  outline: none;
+  transition: 0.2s ease;
+}
+
+.input-group input:focus {
+  border: 1px solid var(--blue-primary);
+  box-shadow: 0 0 5px rgba(109, 169, 228, 0.5);
+}
+
+/* Botão */
+.btn-register {
+  padding: 13px;
+  background: var(--blue-primary);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  width: 100%;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.btn-register:hover {
+  background: var(--blue-primary-hover);
+  transform: translateY(-3px);
+}
+
+/* Mensagens */
+.erro {
+  color: #c0392b;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.sucesso {
+  color: #27ae60;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Animação */
+@keyframes fadeIn {
+  from {
+    transform: translateY(25px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

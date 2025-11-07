@@ -1,0 +1,29 @@
+<div class="background">
+  <div class="card animate">
+    <h1 class="title">Criar conta</h1>
+    <p class="subtitle">Comece a compartilhar citações</p>
+
+    <form (submit)="registrar(); $event.preventDefault()">
+
+      <div class="input-group">
+        <label>Nome completo</label>
+        <input type="text" [(ngModel)]="nome" name="nome" placeholder="Seu nome completo" required />
+      </div>
+
+      <div class="input-group mt-3">
+        <label>Email</label>
+        <input type="email" [(ngModel)]="email" name="email" placeholder="email@exemplo.com" required />
+      </div>
+
+      <div class="input-group mt-3">
+        <label>Senha</label>
+        <input type="password" [(ngModel)]="senha" name="senha" placeholder="Senha" required />
+      </div>
+
+      <button type="submit" class="btn-register mt-4">Cadastrar</button>
+
+      <p class="erro" *ngIf="erro()">{{ erro() }}</p>
+      <p class="sucesso" *ngIf="sucesso()">{{ sucesso() }}</p>
+    </form>
+  </div>
+</div>

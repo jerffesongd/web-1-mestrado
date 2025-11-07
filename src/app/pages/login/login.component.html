@@ -1,0 +1,24 @@
+<div class="background">
+  <div class="login-card animate">
+    <h1 class="title">Apud</h1>
+    <p class="subtitle">Compartilhe ideias. Inspire pessoas.</p>
+
+    <form (submit)="fazerLogin(); $event.preventDefault()">
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email" [(ngModel)]="email" name="email" placeholder="seu@email..."
+          required />
+      </div>
+
+      <div class="input-group mt-3">
+        <label>Senha</label>
+        <input type="password" [(ngModel)]="senha" name="senha" placeholder="Senha"
+          required />
+      </div>
+
+      <button type="submit" class="btn-login mt-4">Entrar</button>
+      <p class="erro" *ngIf="erro()">{{ erro() }}</p>
+    </form>
+    <p class="link-cadastro">Ainda não tem cadastro?<br> <a href="/usuario/cadastro">Cadastre-se aqui.</a></p>
+  </div>
+</div>

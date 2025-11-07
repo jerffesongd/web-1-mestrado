@@ -37,4 +37,17 @@ export class PerfilComponent {
       this.mensagemErro.set('Erro ao salvar as alterações.');
     }
   }
+
+  async deletar(){
+    try {
+      await this.sessaoService.excluirUsuarioLogado();
+      this.mensagemSucesso.set('Dados atualizados com sucesso!');
+      this.mensagemErro.set(null);
+
+      setTimeout(() => (this.mensagemSucesso.set(null)), 2000);
+    } catch (e) {
+      this.mensagemErro.set('Erro ao salvar as alterações.');
+    }
+
+  }
 }

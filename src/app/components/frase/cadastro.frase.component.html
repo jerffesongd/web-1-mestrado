@@ -13,25 +13,7 @@
 
   <!-- LISTAGEM EM CARDS -->
   <div class="lista-frases">
-    <div class="card-frase" *ngFor="let frase of (frases$ | async)">
-
-      <div class="frase-texto">“{{ frase.texto }}”</div>
-
-      <div class="frase-info">
-        <span><strong>Autor:</strong> {{ getAutorNome(frase.autorId) }}</span>
-        <span><strong>Tema:</strong> {{ getTemaNome(frase.temaId) }}</span>
-        <span><strong>Categoria:</strong> {{ getCategoriaNome(frase.categoria) }}</span>
-        <span><strong>Criado por:</strong> {{ getUsuarioNome(frase.criadoPor) }}</span>
-        <span><strong>Em:</strong> {{ frase.criadoEm?.toDate?.() | date:'dd/MM/yyyy HH:mm' }}</span>
-      </div>
-
-      @if(usuarioLogado()){
-        <div class="acoes">
-          <span class="btn-acao edit" (click)="editar(frase.id!)">Editar</span>
-          <span class="btn-acao delete" (click)="deletar(frase.id!)">Excluir</span>
-        </div>
-      }
-    </div>
+    <app-frase-card *ngFor="let frase of frases$ | async" [frase]="frase"></app-frase-card>
   </div>
 </div>
 
@@ -78,4 +60,4 @@
       {{ editandoId ? 'Atualizar' : 'Salvar' }}
     </button>
   </form>
-
+</div>

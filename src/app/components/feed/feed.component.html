@@ -8,7 +8,7 @@
         <div class="card h-100 text-center shadow-sm">
           <div class="card-body">
             <h5 class="card-title">{{ autor.nome }} {{ autor.sobrenome }}</h5>
-            <a [routerLink]="['/autores', autor.id]" class="btn btn-outline-primary btn-sm">
+            <a [routerLink]="['/autores', autor.id]" class="btn btn-contornado-padrao">
               Ver mais
             </a>
           </div>
@@ -18,7 +18,7 @@
 
     <!-- 🔹 Botão "Ver todos os autores" -->
     <div class="text-center mt-3">
-      <a class="btn btn-primary" [routerLink]="['/autores']">
+      <a class="btn btn-padrao" [routerLink]="['/autores']">
         Ver todos os autores
       </a>
     </div>
@@ -44,8 +44,8 @@
             </ul>
 
             <div class="text-center">
-              <a class="btn btn-secondary" [routerLink]="['/categorias', categoria.id]">
-                Ver Categoria
+              <a class="btn btn-contornado-padrao" [routerLink]="['/categorias', categoria.id]">
+                Ver mais
               </a>
             </div>
           </div>
@@ -55,7 +55,7 @@
 
     <!-- 🔹 Botão "Ver todas as categorias" -->
     <div class="text-center mt-3">
-      <a class="btn btn-secondary" [routerLink]="['/categorias']">
+      <a class="btn btn-padrao" [routerLink]="['/categorias']">
         Ver todas as categorias
       </a>
     </div>
@@ -80,8 +80,8 @@
             </ul>
 
             <div class="text-center">
-              <a class="btn btn-outline-dark btn-sm" [routerLink]="['/temas', tema.id]">
-                Ver todos
+              <a class="btn btn-contornado-padrao" [routerLink]="['/temas', tema.id]">
+                Ver mais
               </a>
             </div>
           </div>
@@ -91,7 +91,7 @@
 
     <!-- 🔹 Botão "Ver todos os temas" -->
     <div class="text-center mt-3">
-      <a class="btn btn-dark" [routerLink]="['/temas']">
+      <a class="btn btn-padrao" [routerLink]="['/temas']">
         Ver todos os temas
       </a>
     </div>

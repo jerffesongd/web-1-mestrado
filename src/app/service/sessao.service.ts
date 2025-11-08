@@ -3,6 +3,7 @@ import { Firestore, collection, addDoc, query, where, getDocs,   doc,
   updateDoc,
   deleteDoc, } from '@angular/fire/firestore';
 import { Route, Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 export interface UsuarioLogado {
   id?: string;
@@ -16,6 +17,14 @@ export interface UsuarioLogado {
 })
 export class SessaoService {
   private usuarioAtual = signal<UsuarioLogado | null>(null);
+
+  // Fechar telas de edição de frase para evitar que se sobreponham
+  private fecharDrawerSubject = new Subject<void>();
+  fecharDrawer$ = this.fecharDrawerSubject.asObservable();
+
+  fecharTodos() {
+    this.fecharDrawerSubject.next();
+  }
 
   constructor(private firestore: Firestore, private router : Router) {
     const salvo = localStorage.getItem('usuarioLogado');
@@ -125,4 +134,5 @@ export class SessaoService {
     // Redireciona
     this.router.navigate(['']);
   }
+
 }

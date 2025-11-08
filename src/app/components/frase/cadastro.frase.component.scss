@@ -104,4 +104,22 @@
   text-decoration: underline;
 }
 
+.topo-card{
+  position: relative;
+}
 
+.favorito {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.icone {
+  font-size: 22px;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.icone.ativo {
+  opacity: 1;
+}

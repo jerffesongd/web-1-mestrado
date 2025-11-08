@@ -1,0 +1,11 @@
+
+<div class="container-frases">
+
+  <div class="header">
+    <h2>Favoritos</h2>
+  </div>
+  <!-- LISTAGEM EM CARDS -->
+  <div class="lista-frases">
+    <app-frase-card *ngFor="let frase of frasesFavoritas$ | async" [frase]="frase"></app-frase-card>
+  </div>
+</div>

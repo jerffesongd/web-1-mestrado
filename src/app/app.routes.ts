@@ -14,6 +14,7 @@ import { CategoriasListComponent } from './components/categoria/listagem/categor
 import { CategoriaFrasesComponent } from './components/categoria/frases/categoria.frases.component';
 import { TemasListComponent } from './components/tema/listagem/tema-list.component';
 import { TemaFrasesComponent } from './components/tema/frases/tema.frases.component';
+import { FavoritosComponent } from './pages/favoritos/favoritos.component';
 
 export const routes: Routes = [
     { path: '', component: FeedComponent },
@@ -31,5 +32,6 @@ export const routes: Routes = [
     { path: 'categorias/:id', component: CategoriaFrasesComponent },
     { path: 'temas', component: TemasListComponent },
     { path: 'temas/:id', component: TemaFrasesComponent },
+    { path: 'favoritos', component: FavoritosComponent },
     { path: '**', redirectTo: '' }
 ];

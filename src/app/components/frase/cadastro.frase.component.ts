@@ -6,13 +6,11 @@ import {
   collection,
   collectionData,
   addDoc,
-  deleteDoc,
   updateDoc,
   doc,
-  getDoc,
   serverTimestamp
 } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { MensagemComponent } from '../mensagem/mensagem.component';
 import { TipoMensagem } from '../model/TipoMensagem';
 import { Autor } from '../model/Autor';
@@ -20,13 +18,15 @@ import { Tema } from '../model/Tema';
 import { Frase } from '../model/Frase';
 import { SessaoService, UsuarioLogado } from '../../service/sessao.service';
 import { Categoria } from '../model/Categoria';
+import { FavoritoService } from '../../service/favorito.service';
+import { FraseCardComponent } from './card/frase.card.component';
 
 
 
 @Component({
   selector: 'app-cadastro-frase',
   standalone: true,
-  imports: [CommonModule, FormsModule, MensagemComponent],
+  imports: [CommonModule, FormsModule, MensagemComponent, FraseCardComponent],
   styleUrl: './cadastro.frase.component.scss',
   templateUrl: './cadastro.frase.component.html'
 })
@@ -52,7 +52,8 @@ export class CadastroFraseComponent {
 
   constructor(
     private firestore: Firestore,
-    private sessaoService: SessaoService // ✅ pegando o usuário logado
+    private sessaoService: SessaoService, // ✅ pegando o usuário logado
+    private favoritoService: FavoritoService
   ) {
     const frasesRef = collection(this.firestore, 'frases');
     const autoresRef = collection(this.firestore, 'autores');
@@ -72,6 +73,7 @@ export class CadastroFraseComponent {
     this.usuarios$ = collectionData(usuariosRef, { idField: 'id' }) as Observable<UsuarioLogado[]>;
 
     this.usuarios$.subscribe(data => (this.usuariosSnapshot = data));
+    
   }
 
   private exibirMensagem(mensagem: string, tipo: TipoMensagem) {
@@ -135,37 +137,6 @@ export class CadastroFraseComponent {
     }
   }
 
-  async editar(id: string) {
-    try {
-      const docRef = doc(this.firestore, `frases/${id}`);
-      const snap = await getDoc(docRef);
-      if (snap.exists()) {
-        const data = snap.data() as Frase;
-        this.novaFrase = {
-          texto: data.texto,
-          autorId: data.autorId,
-          temaId: data.temaId,
-          categoria: data.categoria
-        };
-        this.editandoId = id;
-        this.drawerAberto = true;
-      }
-    } catch {
-      this.exibirMensagem('Erro ao carregar a frase para edição.', TipoMensagem.ERRO);
-    }
-  }
-
-  async deletar(id: string) {
-    if (!confirm('Tem certeza que deseja excluir esta frase?')) return;
-    try {
-      const docRef = doc(this.firestore, `frases/${id}`);
-      await deleteDoc(docRef);
-      this.exibirMensagem('Frase excluída com sucesso!', TipoMensagem.SUCESSO);
-    } catch {
-      this.exibirMensagem('Erro ao excluir a frase.', TipoMensagem.ERRO);
-    }
-  }
-
   cancelarEdicao() {
     this.editandoId = null;
     this.novaFrase = {};
@@ -206,5 +177,13 @@ export class CadastroFraseComponent {
 
   fecharDrawer() {
     this.drawerAberto = false;
+  }
+
+  isFavorito(id: string): boolean {
+    return this.favoritoService.isFavorito(id);
+  }
+
+  toggleFavorito(id: string) {
+    this.favoritoService.toggleFavorito(id);
   }
 }

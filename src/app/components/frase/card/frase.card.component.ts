@@ -75,7 +75,7 @@ export class FraseCardComponent {
 
   get textoLimitado(): string {
     if (!this.frase) return '';
-    return this.frase.texto.length > 30 ? this.frase.texto.substring(0, 30) + '...' : this.frase.texto;
+    return this.frase.texto
   }
 
   copiarTexto() {

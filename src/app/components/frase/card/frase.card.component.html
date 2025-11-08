@@ -1,8 +1,9 @@
 <div class="card-frase">
 
     <div class="topo-card">
-        <div class="frase-texto">“{{ textoLimitado }}”</div>
-        <div class="favorito" >
+      <div style="display: flex;">
+        <div style="flex:1; max-width: calc(100% - 85px)" class="frase-texto">“{{ textoLimitado }}”</div>
+        <div style="width:85px;" class="favorito" >
 
           <span *ngIf="usuarioLogado()" class="icone"
             [class.ativo]="isFavorito(frase?.id!)"
@@ -14,6 +15,7 @@
             </button>
 
         </div>
+      </div>
       </div>
 
       <div class="frase-info">

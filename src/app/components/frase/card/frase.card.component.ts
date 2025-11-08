@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { Frase } from '../../model/Frase';
 import { SessaoService, UsuarioLogado } from '../../../service/sessao.service';
 import { addDoc, collectionData, deleteDoc, doc, Firestore, getDoc, updateDoc } from '@angular/fire/firestore';
@@ -11,19 +11,23 @@ import { CommonModule } from '@angular/common';
 import { FavoritoService } from '../../../service/favorito.service';
 import { FormsModule } from '@angular/forms';
 import { TipoMensagem } from '../../model/TipoMensagem';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-frase-card',
   templateUrl: './frase.card.component.html',
   styleUrls: ['./frase.card.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule,]
+  imports: [CommonModule, FormsModule, MatIconModule,MatTooltipModule]
 })
 export class FraseCardComponent {
 
   frases$: Observable<Frase[]>;
   autores$: Observable<Autor[]>;
   temas$: Observable<Tema[]>;
+  private _snackBar = inject(MatSnackBar);
 
   categorias$: Observable<Categoria[]>;
 
@@ -76,7 +80,9 @@ export class FraseCardComponent {
 
   copiarTexto() {
     navigator.clipboard.writeText(this.frase?.texto || '');
-    alert('Frase copiada!');
+    this._snackBar.open("Frase copiada!", undefined, {
+      duration: 3000, // tempo em milissegundos (3s)
+    });
   }
 
   compartilhar(rede: 'whatsapp' | 'twitter' | 'facebook' | 'linkedin') {

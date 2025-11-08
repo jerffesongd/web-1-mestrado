@@ -170,3 +170,17 @@ label{
   border: none;
   border-radius: 20px;
 }
+
+.mat-mdc-simple-snack-bar{
+  background-color: var(--blue-primary);
+  color: white;
+}
+.mat-mdc-snackbar-surface{
+  padding-right: 0 !important;
+  border-radius: 10px !important;
+}
+.mat-mdc-snackbar-surface *{
+  background-color: var(--text-subtitle) !important;
+  border-radius: 10px !important;
+
+}

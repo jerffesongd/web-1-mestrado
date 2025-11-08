@@ -2,26 +2,31 @@
 
     <div class="topo-card">
         <div class="frase-texto">“{{ textoLimitado }}”</div>
-        <div class="favorito" *ngIf="usuarioLogado()">
+        <div class="favorito" >
 
-          <span class="icone"
+          <span *ngIf="usuarioLogado()" class="icone"
             [class.ativo]="isFavorito(frase?.id!)"
             (click)="toggleFavorito(frase?.id!)">
             ❤️
           </span>
+          <button class="btn btn-sm" (click)="copiarTexto()" matTooltip="Copiar frase">
+                <mat-icon>copy_all</mat-icon>
+            </button>
 
         </div>
       </div>
 
       <div class="frase-info">
-        <span><strong>Autor:</strong> {{ getAutorNome() }}</span>
-        <span><strong>Tema:</strong> {{ getTemaNome() }}</span>
-        <span><strong>Categoria:</strong> {{ getCategoriaNome() }}</span>
-        <span><strong>Criado por:</strong> {{ getUsuarioNome() }}</span>
-        <span><strong>Em:</strong> {{ frase?.criadoEm?.toDate?.() | date:'dd/MM/yyyy HH:mm' }}</span>
-        <button class="btn btn-sm" (click)="copiarTexto()">
-            <i class="fas fa-clipboard"></i>
-        </button>
+        <div>
+            <span class="info-secundaria"><strong>Autor:</strong> {{ getAutorNome() }}</span>
+            <span class="info-secundaria"><strong>Tema:</strong> {{ getTemaNome() }}</span>
+            <span class="info-secundaria"><strong>Categoria:</strong> {{ getCategoriaNome() }}</span>
+        </div>
+        
+        <div class="mb-2">
+            <span class="info-terciaria"><strong>Criado por:</strong> {{ getUsuarioNome() }}</span>
+            <span class="info-terciaria"><strong>Em:</strong> {{ frase?.criadoEm?.toDate?.() | date:'dd/MM/yyyy HH:mm' }}</span>
+        </div>
       </div>
 
       @if(usuarioLogado()){

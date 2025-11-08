@@ -5,18 +5,18 @@
   <section class="mb-5" *ngIf="frases$ | async as frases">
     <h3 class="text-center mb-4">Frases por Categoria</h3>
     <div class="row">
-      <div class="col-md-4 mb-4" *ngFor="let categoria of categorias">
+      <div class="col-md-6 mb-4" *ngFor="let categoria of categorias">
         <div class="card h-100 shadow-sm">
           <div class="card-body">
             <h5 class="card-title text-center">{{ getCategoriaNome(categoria) }}</h5>
             <ul class="list-group list-group-flush mt-3">
-              <li class="list-group-item p-0 border-0"
+              <li class="list-group-item p-0 border-0 mb-3"
                   *ngFor="let f of filtrarFrasesPorCampo(frases, 'categoria', categoria) | slice:0:3">
                 <app-frase-card [frase]="f"></app-frase-card>
               </li>
             </ul>
             <div class="text-center mt-3">
-              <a class="btn btn-secondary" [routerLink]="['/categorias', categoria]">
+              <a class="btn btn-contornado-padrao" [routerLink]="['/categorias', categoria]">
                   Ver Categoria
                 </a> 
             </div>
@@ -41,7 +41,7 @@
               </li>
             </ul>
             <div class="text-center mt-3">
-              <a class="btn btn-outline-dark btn-sm" [routerLink]="['/temas', tema]">Ver todos</a>
+              <a class="btn btn-contornado-padrao" [routerLink]="['/temas', tema]">Ver todos</a>
             </div>
           </div>
         </div>
